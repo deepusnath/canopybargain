@@ -214,6 +214,7 @@ export function Sidebar() {
                 onClick={() => st().selectLayer(l.id)}
               >
                 {l.type === 'text' ? `T “${l.text.slice(0, 18)}”` : '🖼 Image'}
+                {l.locked ? ' 🔒' : ''}
               </button>
             </li>
           ))}

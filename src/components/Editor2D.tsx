@@ -15,6 +15,9 @@ export function Editor2D() {
   const selectedLayerId = useStore((s) => s.selectedLayerId)
   const selectLayer = useStore((s) => s.selectLayer)
   const updateLayer = useStore((s) => s.updateLayer)
+  const moveLayer = useStore((s) => s.moveLayer)
+  const duplicateLayer = useStore((s) => s.duplicateLayer)
+  const removeLayer = useStore((s) => s.removeLayer)
 
   const spec = partSpecs(design.tentSize)[activePart]
   const panel = design.parts[activePart]
@@ -65,9 +68,11 @@ export function Editor2D() {
       const pad = 6
       if (x >= bb.x - pad && x <= bb.x + bb.w + pad && y >= bb.y - pad && y <= bb.y + bb.h + pad) {
         selectLayer(layer.id)
-        const { w, h } = canvasSize(spec.dims, EDITOR_PPI)
-        dragRef.current = { layerId: layer.id, dx: x - layer.x * w, dy: y - layer.y * h }
-        canvas.setPointerCapture(e.pointerId)
+        if (!layer.locked) {
+          const { w, h } = canvasSize(spec.dims, EDITOR_PPI)
+          dragRef.current = { layerId: layer.id, dx: x - layer.x * w, dy: y - layer.y * h }
+          canvas.setPointerCapture(e.pointerId)
+        }
         return
       }
     }
@@ -92,9 +97,30 @@ export function Editor2D() {
   }
 
   const { w, h } = canvasSize(spec.dims, EDITOR_PPI)
+  const selected = panel.layers.find((l) => l.id === selectedLayerId) ?? null
 
   return (
     <div className="editor-wrap">
+      {selected && (
+        <div className="canvas-toolbar" role="toolbar" aria-label="Selected layer actions">
+          <button className="tool-btn" title="Bring forward" aria-label="Bring forward"
+            onClick={() => moveLayer(activePart, selected.id, 1)}>⬆</button>
+          <button className="tool-btn" title="Send backward" aria-label="Send backward"
+            onClick={() => moveLayer(activePart, selected.id, -1)}>⬇</button>
+          <span className="tool-sep" />
+          <button
+            className={`tool-btn ${selected.locked ? 'tool-on' : ''}`}
+            title={selected.locked ? 'Unlock (allow dragging)' : 'Lock (prevent dragging)'}
+            aria-label={selected.locked ? 'Unlock layer' : 'Lock layer'}
+            onClick={() => updateLayer(activePart, selected.id, { locked: !selected.locked })}
+          >{selected.locked ? '🔒' : '🔓'}</button>
+          <button className="tool-btn" title="Duplicate" aria-label="Duplicate layer"
+            onClick={() => duplicateLayer(activePart, selected.id)}>⧉</button>
+          <span className="tool-sep" />
+          <button className="tool-btn tool-danger" title="Delete" aria-label="Delete layer"
+            onClick={() => removeLayer(activePart, selected.id)}>🗑</button>
+        </div>
+      )}
       <div className="editor-stage">
         <div className="editor-canvas-holder">
           <canvas

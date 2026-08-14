@@ -60,7 +60,10 @@ and without guessing what the finished tent will look like.
   recolorable to brand colors.
 - **FR-24 "Same design on all 4 sides"** toggle (mirrors the active side's design to all sides;
   turning it off forks per-side designs).
-- **FR-25 Layer management**: reorder, duplicate, delete; drag directly on the 2D canvas.
+- **FR-25 Layer management**: reorder, duplicate, delete, **lock/unlock** (locked layers
+  select but don't drag); drag directly on the 2D canvas. A **contextual toolbar** floats
+  over the canvas whenever a layer is selected, exposing these actions in place
+  (order ⬆⬇ · lock · duplicate · delete) — matching the reference tool's selected-object toolbar.
 - **FR-26 Guides**: bleed line (red) and safe area (green) rendered on the 2D editor;
   warning badge when a layer crosses the safe area.
 - **FR-27 Quick-design mode**: pick logo + 2 brand colors → auto-generates a complete

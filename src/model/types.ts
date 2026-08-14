@@ -26,6 +26,8 @@ export interface PatternSpec {
 export interface TextLayer {
   id: string
   type: 'text'
+  /** locked layers can be selected but not dragged on the canvas */
+  locked?: boolean
   text: string
   font: string
   /** font size in inches at print scale */
@@ -42,6 +44,8 @@ export interface TextLayer {
 export interface ImageLayer {
   id: string
   type: 'image'
+  /** locked layers can be selected but not dragged on the canvas */
+  locked?: boolean
   dataUrl: string
   naturalW: number
   naturalH: number
