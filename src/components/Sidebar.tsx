@@ -91,11 +91,24 @@ export function Sidebar() {
   const [slotsVersion, setSlotsVersion] = useState(0)
   const [importError, setImportError] = useState('')
 
+  // cascade new layers away from occupied spots so they never stack invisibly
+  const spawnPoint = (): { x: number; y: number } => {
+    let x = 0.5
+    let y = 0.5
+    const occupied = () =>
+      panel.layers.some((l) => Math.abs(l.x - x) < 0.04 && Math.abs(l.y - y) < 0.04)
+    while (occupied() && y < 0.82) {
+      x = Math.min(0.82, x + 0.05)
+      y = Math.min(0.82, y + 0.07)
+    }
+    return { x, y }
+  }
+
   const addText = () => {
     const layer: TextLayer = {
       id: uid('text'), type: 'text', text: 'Your Text', font: 'Arial',
       sizeIn: Math.max(4, spec.dims.hIn / 8), color: '#111111', weight: 'bold',
-      arc: 0, rotation: 0, x: 0.5, y: 0.5,
+      arc: 0, rotation: 0, ...spawnPoint(),
     }
     st().addLayer(activePart, layer)
     focusInlineTextInput() // type immediately, no hunting for the sidebar field
@@ -104,7 +117,7 @@ export function Sidebar() {
   const addShape = (shape: ShapeLayer['shape']) => {
     const layer: ShapeLayer = {
       id: uid('shape'), type: 'shape', shape, color: '#1d7ed8', opacity: 1,
-      scale: 0.2, aspect: shape === 'line' ? 0.04 : 1, rotation: 0, x: 0.5, y: 0.5,
+      scale: 0.2, aspect: shape === 'line' ? 0.04 : 1, rotation: 0, ...spawnPoint(),
     }
     st().addLayer(activePart, layer)
   }
@@ -114,7 +127,7 @@ export function Sidebar() {
     if (!url || url === 'https://') return
     const layer: QrLayer = {
       id: uid('qr'), type: 'qr', url: url.trim(), dark: '#111111',
-      scale: 0.18, rotation: 0, x: 0.5, y: 0.5,
+      scale: 0.18, rotation: 0, ...spawnPoint(),
     }
     st().addLayer(activePart, layer)
   }

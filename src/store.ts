@@ -82,8 +82,14 @@ export const useStore = create<AppState>((set, get) => ({
 
   setDesignName: (name) => set((s) => ({ design: { ...s.design, name } })),
   setTentSize: (size) => set((s) => ({ design: { ...s.design, tentSize: size } })),
-  setActivePart: (id) => set({ activePart: id, selectedLayerId: null }),
-  selectLayer: (id) => set({ selectedLayerId: id }),
+  setActivePart: (id) => {
+    dropAbandonedEmptyText(get)
+    set({ activePart: id, selectedLayerId: null })
+  },
+  selectLayer: (id) => {
+    if (id !== get().selectedLayerId) dropAbandonedEmptyText(get, id)
+    set({ selectedLayerId: id })
+  },
 
   setSameOnAllSides: (v) =>
     set((s) => {
@@ -105,6 +111,7 @@ export const useStore = create<AppState>((set, get) => ({
   updatePanel: (id, fn) => set((s) => ({ design: applyToTargets(s.design, id, fn) })),
 
   addLayer: (id, layer) => {
+    dropAbandonedEmptyText(get, layer.id)
     get().updatePanel(id, (p) => ({ ...p, layers: [...p.layers, layer] }))
     set({ selectedLayerId: layer.id })
   },
@@ -192,6 +199,20 @@ export const useStore = create<AppState>((set, get) => ({
   undo: () => restoreFromHistory('undo'),
   redo: () => restoreFromHistory('redo'),
 }))
+
+/**
+ * When selection moves away from a text layer whose content was emptied,
+ * remove it — abandoned invisible layers are impossible to find later.
+ */
+function dropAbandonedEmptyText(get: () => AppState, nextSelectedId?: string | null): void {
+  const s = get()
+  const prevId = s.selectedLayerId
+  if (!prevId || prevId === nextSelectedId) return
+  const layer = s.design.parts[s.activePart].layers.find((l) => l.id === prevId)
+  if (layer?.type === 'text' && layer.text.trim() === '') {
+    s.removeLayer(s.activePart, prevId)
+  }
+}
 
 // ---- undo/redo history ----
 // Every design mutation funnels through set({design}), so history is captured
