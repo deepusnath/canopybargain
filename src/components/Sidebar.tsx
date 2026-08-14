@@ -6,6 +6,7 @@ import { partSpecs } from '../model/parts'
 import { PATTERNS } from '../model/patterns'
 import { fileToDataUrl } from '../render/imageCache'
 import { imageDpi } from '../render/panelRenderer'
+import { DEMO_DESIGNS } from '../shop/demoDesigns'
 
 const PALETTE = [
   '#ffffff', '#111111', '#e63946', '#f77f00', '#fcbf49',
@@ -328,6 +329,20 @@ export function Sidebar() {
             </li>
           ))}
         </ul>
+        <div className="field">
+          <span>Sample designs</span>
+          <div className="btn-row">
+            {DEMO_DESIGNS.map((demo) => (
+              <button
+                key={demo.label}
+                className="btn btn-sm"
+                onClick={() => st().loadDesign(demo.build())}
+              >
+                {demo.label}
+              </button>
+            ))}
+          </div>
+        </div>
         <button className="btn btn-sm" onClick={() => { if (confirm('Start over with a blank design?')) st().reset() }}>
           Reset design
         </button>
