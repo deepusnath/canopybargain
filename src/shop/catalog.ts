@@ -161,6 +161,11 @@ export function fmtMoney(v: number): string {
   return v % 1 === 0 ? `$${v.toFixed(0)}` : `$${v.toFixed(2)}`
 }
 
+/** Shopify CDN images accept a width param — request only the pixels we render. */
+export function sizedImage(src: string, width: number): string {
+  return src.includes('?') ? `${src}&width=${width}` : `${src}?width=${width}`
+}
+
 export function priceLabel(p: Product): string {
   return p.price === p.priceMax ? fmtMoney(p.price) : `${fmtMoney(p.price)}–${fmtMoney(p.priceMax)}`
 }

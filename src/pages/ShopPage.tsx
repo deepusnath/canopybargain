@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react'
 import { Link, useNavigate, useParams } from 'react-router-dom'
 import {
-  PRODUCTS, CATEGORY_LABELS, fmtMoney, priceLabel,
+  PRODUCTS, CATEGORY_LABELS, fmtMoney, priceLabel, sizedImage,
   type Category, type Product, type ProductVariant,
 } from '../shop/catalog'
 import { ProductArt } from '../components/ProductArt'
@@ -9,7 +9,16 @@ import { useCart } from '../shop/cartStore'
 
 export function ProductImage({ product, className }: { product: Product; className?: string }) {
   if (product.images.length > 0) {
-    return <img src={product.images[0]} alt={product.name} loading="lazy" className={className} />
+    return (
+      <img
+        src={sizedImage(product.images[0], 480)}
+        srcSet={`${sizedImage(product.images[0], 480)} 480w, ${sizedImage(product.images[0], 800)} 800w`}
+        sizes="(max-width: 760px) 90vw, 300px"
+        alt={product.name}
+        loading="lazy"
+        className={className}
+      />
+    )
   }
   return <ProductArt art={product.art} className={className} />
 }
@@ -156,7 +165,7 @@ export function ProductPage() {
           {product.images.length > 0 ? (
             <>
               <img
-                src={product.images[Math.min(imageIdx, product.images.length - 1)]}
+                src={sizedImage(product.images[Math.min(imageIdx, product.images.length - 1)], 1000)}
                 alt={product.name}
                 className="detail-photo"
               />
@@ -169,7 +178,7 @@ export function ProductPage() {
                       onClick={() => setImageIdx(i)}
                       aria-label={`Image ${i + 1}`}
                     >
-                      <img src={src} alt="" loading="lazy" />
+                      <img src={sizedImage(src, 120)} alt="" loading="lazy" />
                     </button>
                   ))}
                 </div>

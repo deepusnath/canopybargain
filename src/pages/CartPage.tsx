@@ -5,7 +5,7 @@ import {
   placeOrder, getOrder, updateOrderDelivery, type ShippingInfo,
 } from '../shop/cartStore'
 import { deliverOrder, openStripeLink, paymentConfig } from '../shop/payment'
-import { productById, fmtMoney } from '../shop/catalog'
+import { productById, fmtMoney, sizedImage } from '../shop/catalog'
 import { ProductArt } from '../components/ProductArt'
 import { useParams } from 'react-router-dom'
 
@@ -17,7 +17,7 @@ function LineArt({ item }: { item: ReturnType<typeof useCart.getState>['items'][
   if (!product) return null
   const variant = product.variants.find((v) => v.id === item.variantId)
   const src = variant?.imageSrc ?? product.images[0]
-  if (src) return <img src={src} alt={product.name} className="line-art line-thumb" loading="lazy" />
+  if (src) return <img src={sizedImage(src, 220)} alt={product.name} className="line-art line-thumb" loading="lazy" />
   return <ProductArt art={product.art} className="line-art" />
 }
 
