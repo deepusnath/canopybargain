@@ -3,6 +3,7 @@ import type { Design, TentSize } from './types'
 // Base package prices track the live store's custom-canopy products
 // (see scripts/scrape-catalog.mjs); wall add-ons track the custom sidewall product.
 const BASE: Record<TentSize, number> = {
+  '5x5': 299,
   '10x10': 399,
   '10x15': 669,
   '10x20': 769,

@@ -127,6 +127,7 @@ export function Sidebar() {
             value={design.tentSize}
             onChange={(e) => st().setTentSize(e.target.value as TentSize)}
           >
+            <option value="5x5">5 × 5 ft</option>
             <option value="10x10">10 × 10 ft</option>
             <option value="10x15">10 × 15 ft</option>
             <option value="10x20">10 × 20 ft</option>

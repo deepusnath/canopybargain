@@ -8,6 +8,7 @@ export interface TentFrame {
 }
 
 export const FRAMES: Record<TentSize, TentFrame> = {
+  '5x5': { wFt: 5, dFt: 5, eaveIn: 78, riseIn: 31.7 },
   '10x10': { wFt: 10, dFt: 10, eaveIn: 84, riseIn: 63.3 },
   '10x15': { wFt: 10, dFt: 15, eaveIn: 84, riseIn: 63.3 },
   '10x20': { wFt: 10, dFt: 20, eaveIn: 84, riseIn: 63.3 },

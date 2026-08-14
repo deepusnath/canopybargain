@@ -1,4 +1,4 @@
-export type TentSize = '10x10' | '10x15' | '10x20'
+export type TentSize = '5x5' | '10x10' | '10x15' | '10x20'
 
 export type PartId =
   | 'peak0' | 'peak1' | 'peak2' | 'peak3'

@@ -3,12 +3,28 @@ import { useStore } from '../store'
 import { partSpecs, fmtIn } from '../model/parts'
 import { renderPanel, layerBBox, canvasSize } from '../render/panelRenderer'
 import { onImageReady } from '../render/imageCache'
+import type { Layer } from '../model/types'
 
 const EDITOR_PPI = 6
+const HANDLE_R = 11 // hit radius in canvas px
+const ROT_OFFSET = 32 // rotate handle distance above the selection box
+
+type DragState =
+  | { kind: 'move'; layerId: string; dx: number; dy: number }
+  | { kind: 'resize'; layerId: string; startDist: number; startSizeIn?: number; startScale?: number }
+  | { kind: 'rotate'; layerId: string; startAngle: number; startRotation: number }
+
+interface SelectionGeom {
+  cx: number
+  cy: number
+  bw: number
+  bh: number
+  rot: number // radians
+}
 
 export function Editor2D() {
   const canvasRef = useRef<HTMLCanvasElement>(null)
-  const dragRef = useRef<{ layerId: string; dx: number; dy: number } | null>(null)
+  const dragRef = useRef<DragState | null>(null)
 
   const activePart = useStore((s) => s.activePart)
   const design = useStore((s) => s.design)
@@ -22,6 +38,18 @@ export function Editor2D() {
   const spec = partSpecs(design.tentSize)[activePart]
   const panel = design.parts[activePart]
 
+  const selectionGeom = (ctx: CanvasRenderingContext2D, layer: Layer): SelectionGeom => {
+    const { w, h } = canvasSize(spec.dims, EDITOR_PPI)
+    const bb = layerBBox(ctx, layer, spec.dims, EDITOR_PPI)
+    return {
+      cx: layer.x * w,
+      cy: layer.y * h,
+      bw: bb.w,
+      bh: bb.h,
+      rot: (layer.rotation * Math.PI) / 180,
+    }
+  }
+
   const draw = useCallback(() => {
     const canvas = canvasRef.current
     if (!canvas) return
@@ -29,11 +57,44 @@ export function Editor2D() {
     if (!ctx) return
     const { design: d, activePart: ap, selectedLayerId: sel } = useStore.getState()
     const sp = partSpecs(d.tentSize)[ap]
-    renderPanel(ctx, d.parts[ap], sp.dims, {
-      ppi: EDITOR_PPI,
-      guides: true,
-      selectedLayerId: sel,
-    })
+    renderPanel(ctx, d.parts[ap], sp.dims, { ppi: EDITOR_PPI, guides: true })
+
+    // selection box + resize/rotate handles, drawn in the layer's rotated frame
+    const layer = sel ? d.parts[ap].layers.find((l) => l.id === sel) : null
+    if (!layer) return
+    const { w, h } = canvasSize(sp.dims, EDITOR_PPI)
+    const bb = layerBBox(ctx, layer, sp.dims, EDITOR_PPI)
+    const cx = layer.x * w
+    const cy = layer.y * h
+    ctx.save()
+    ctx.translate(cx, cy)
+    ctx.rotate((layer.rotation * Math.PI) / 180)
+    ctx.strokeStyle = '#2b7de9'
+    ctx.lineWidth = 1.6
+    ctx.setLineDash([6, 4])
+    ctx.strokeRect(-bb.w / 2, -bb.h / 2, bb.w, bb.h)
+    ctx.setLineDash([])
+    if (!layer.locked) {
+      const half = 5.5
+      for (const [hx, hy] of [
+        [-bb.w / 2, -bb.h / 2], [bb.w / 2, -bb.h / 2],
+        [bb.w / 2, bb.h / 2], [-bb.w / 2, bb.h / 2],
+      ]) {
+        ctx.fillStyle = '#ffffff'
+        ctx.fillRect(hx - half, hy - half, half * 2, half * 2)
+        ctx.strokeRect(hx - half, hy - half, half * 2, half * 2)
+      }
+      ctx.beginPath()
+      ctx.moveTo(0, -bb.h / 2)
+      ctx.lineTo(0, -bb.h / 2 - ROT_OFFSET + 7)
+      ctx.stroke()
+      ctx.beginPath()
+      ctx.arc(0, -bb.h / 2 - ROT_OFFSET, 7, 0, Math.PI * 2)
+      ctx.fillStyle = '#ffffff'
+      ctx.fill()
+      ctx.stroke()
+    }
+    ctx.restore()
   }, [])
 
   // Draw AFTER React commits: React re-applies the canvas width/height
@@ -46,6 +107,14 @@ export function Editor2D() {
 
   useEffect(() => onImageReady(draw), [draw])
 
+  const capture = (canvas: HTMLCanvasElement, pointerId: number) => {
+    try {
+      canvas.setPointerCapture(pointerId)
+    } catch {
+      /* synthetic or already-released pointers can't be captured — dragging still works */
+    }
+  }
+
   const toCanvasCoords = (e: React.PointerEvent): { x: number; y: number } => {
     const canvas = canvasRef.current!
     const rect = canvas.getBoundingClientRect()
@@ -55,13 +124,58 @@ export function Editor2D() {
     }
   }
 
+  /** pointer position in the selected layer's rotated local frame */
+  const toLocal = (g: SelectionGeom, x: number, y: number): { lx: number; ly: number } => {
+    const dx = x - g.cx
+    const dy = y - g.cy
+    const cos = Math.cos(-g.rot)
+    const sin = Math.sin(-g.rot)
+    return { lx: dx * cos - dy * sin, ly: dx * sin + dy * cos }
+  }
+
   const onPointerDown = (e: React.PointerEvent) => {
     const canvas = canvasRef.current
     if (!canvas) return
     const ctx = canvas.getContext('2d')
     if (!ctx) return
     const { x, y } = toCanvasCoords(e)
-    // topmost layer first
+
+    // 1) handles on the current selection take priority
+    const sel = panel.layers.find((l) => l.id === selectedLayerId)
+    if (sel && !sel.locked) {
+      const g = selectionGeom(ctx, sel)
+      const { lx, ly } = toLocal(g, x, y)
+      const rotX = 0
+      const rotY = -g.bh / 2 - ROT_OFFSET
+      if (Math.hypot(lx - rotX, ly - rotY) <= HANDLE_R) {
+        dragRef.current = {
+          kind: 'rotate',
+          layerId: sel.id,
+          startAngle: Math.atan2(y - g.cy, x - g.cx),
+          startRotation: sel.rotation,
+        }
+        capture(canvas, e.pointerId)
+        return
+      }
+      for (const [hx, hy] of [
+        [-g.bw / 2, -g.bh / 2], [g.bw / 2, -g.bh / 2],
+        [g.bw / 2, g.bh / 2], [-g.bw / 2, g.bh / 2],
+      ]) {
+        if (Math.hypot(lx - hx, ly - hy) <= HANDLE_R) {
+          dragRef.current = {
+            kind: 'resize',
+            layerId: sel.id,
+            startDist: Math.max(8, Math.hypot(x - g.cx, y - g.cy)),
+            startSizeIn: sel.type === 'text' ? sel.sizeIn : undefined,
+            startScale: sel.type === 'image' ? sel.scale : undefined,
+          }
+          capture(canvas, e.pointerId)
+          return
+        }
+      }
+    }
+
+    // 2) otherwise hit-test layers, topmost first
     for (let i = panel.layers.length - 1; i >= 0; i--) {
       const layer = panel.layers[i]
       const bb = layerBBox(ctx, layer, spec.dims, EDITOR_PPI)
@@ -70,8 +184,8 @@ export function Editor2D() {
         selectLayer(layer.id)
         if (!layer.locked) {
           const { w, h } = canvasSize(spec.dims, EDITOR_PPI)
-          dragRef.current = { layerId: layer.id, dx: x - layer.x * w, dy: y - layer.y * h }
-          canvas.setPointerCapture(e.pointerId)
+          dragRef.current = { kind: 'move', layerId: layer.id, dx: x - layer.x * w, dy: y - layer.y * h }
+          capture(canvas, e.pointerId)
         }
         return
       }
@@ -83,17 +197,52 @@ export function Editor2D() {
     const drag = dragRef.current
     const canvas = canvasRef.current
     if (!drag || !canvas) return
+    const ctx = canvas.getContext('2d')
+    if (!ctx) return
     const { x, y } = toCanvasCoords(e)
+    const layer = panel.layers.find((l) => l.id === drag.layerId)
+    if (!layer) return
     const { w, h } = canvasSize(spec.dims, EDITOR_PPI)
-    updateLayer(activePart, drag.layerId, {
-      x: Math.min(1, Math.max(0, (x - drag.dx) / w)),
-      y: Math.min(1, Math.max(0, (y - drag.dy) / h)),
-    })
+
+    if (drag.kind === 'move') {
+      updateLayer(activePart, drag.layerId, {
+        x: Math.min(1, Math.max(0, (x - drag.dx) / w)),
+        y: Math.min(1, Math.max(0, (y - drag.dy) / h)),
+      })
+      return
+    }
+
+    const cx = layer.x * w
+    const cy = layer.y * h
+    if (drag.kind === 'resize') {
+      const f = Math.hypot(x - cx, y - cy) / drag.startDist
+      if (layer.type === 'text' && drag.startSizeIn !== undefined) {
+        updateLayer(activePart, drag.layerId, {
+          sizeIn: Math.min(60, Math.max(1, drag.startSizeIn * f)),
+        })
+      } else if (layer.type === 'image' && drag.startScale !== undefined) {
+        updateLayer(activePart, drag.layerId, {
+          scale: Math.min(2, Math.max(0.02, drag.startScale * f)),
+        })
+      }
+      return
+    }
+
+    // rotate
+    const angle = Math.atan2(y - cy, x - cx)
+    let deg = drag.startRotation + ((angle - drag.startAngle) * 180) / Math.PI
+    deg = ((deg + 540) % 360) - 180
+    if (e.shiftKey) deg = Math.round(deg / 15) * 15
+    updateLayer(activePart, drag.layerId, { rotation: Math.round(deg) })
   }
 
   const onPointerUp = (e: React.PointerEvent) => {
     dragRef.current = null
-    canvasRef.current?.releasePointerCapture(e.pointerId)
+    try {
+      canvasRef.current?.releasePointerCapture(e.pointerId)
+    } catch {
+      /* pointer was never captured */
+    }
   }
 
   const { w, h } = canvasSize(spec.dims, EDITOR_PPI)
@@ -110,7 +259,7 @@ export function Editor2D() {
           <span className="tool-sep" />
           <button
             className={`tool-btn ${selected.locked ? 'tool-on' : ''}`}
-            title={selected.locked ? 'Unlock (allow dragging)' : 'Lock (prevent dragging)'}
+            title={selected.locked ? 'Unlock (allow editing)' : 'Lock (prevent editing)'}
             aria-label={selected.locked ? 'Unlock layer' : 'Lock layer'}
             onClick={() => updateLayer(activePart, selected.id, { locked: !selected.locked })}
           >{selected.locked ? '🔒' : '🔓'}</button>
@@ -139,7 +288,7 @@ export function Editor2D() {
       <div className="editor-legend">
         <span><i className="legend-line legend-bleed" /> Bleed</span>
         <span><i className="legend-line legend-safe" /> Safe area</span>
-        <span className="legend-hint">Drag text & logos directly on the panel</span>
+        <span className="legend-hint">Drag to move · corners resize · top handle rotates (Shift snaps 15°)</span>
       </div>
     </div>
   )

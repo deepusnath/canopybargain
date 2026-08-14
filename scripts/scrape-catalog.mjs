@@ -19,6 +19,7 @@ const EXCLUDE_HANDLES = [/^option-set-/]
 
 const CUSTOM_STUDIO = {
   // product handle → studio tent size (wired to the Design Studio)
+  '5-x-5-custom-canopy-with-your-logo-graphics': '5x5',
   '10-x-10-custom-graphics-printed-canopy-american-phoneix': '10x10',
   '10-x-15-custom-canopy-with-your-logo-graphics': '10x15',
   '10-x-20-custom-graphics-printed-canopy-american-phoneix': '10x20',
