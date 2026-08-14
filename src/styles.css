@@ -156,6 +156,11 @@ body {
   border: none; background: none; font-size: 16px; line-height: 1; cursor: pointer;
   padding: 7px 9px; border-radius: 7px; color: var(--ink);
 }
+.tool-text-input {
+  border: 1px solid var(--line); border-radius: 7px; padding: 6px 10px; font: inherit;
+  font-size: 13.5px; width: 180px; margin-right: 2px;
+}
+.tool-text-input:focus { border-color: var(--blue); outline: none; }
 .tool-btn:hover { background: #f1f4f7; }
 .tool-on { background: #fff7e0; }
 .tool-danger:hover { background: #fdecec; }

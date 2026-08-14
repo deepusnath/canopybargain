@@ -6,6 +6,7 @@ import { partSpecs } from '../model/parts'
 import { PATTERNS } from '../model/patterns'
 import { fileToDataUrl } from '../render/imageCache'
 import { imageDpi } from '../render/panelRenderer'
+import { focusInlineTextInput } from './Editor2D'
 import { DEMO_DESIGNS } from '../shop/demoDesigns'
 import { TEMPLATES, applyTemplate, type Template } from '../shop/templates'
 import { renderPanel, canvasSize } from '../render/panelRenderer'
@@ -97,6 +98,7 @@ export function Sidebar() {
       arc: 0, rotation: 0, x: 0.5, y: 0.5,
     }
     st().addLayer(activePart, layer)
+    focusInlineTextInput() // type immediately, no hunting for the sidebar field
   }
 
   const addShape = (shape: ShapeLayer['shape']) => {

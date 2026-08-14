@@ -22,6 +22,15 @@ interface SelectionGeom {
   rot: number // radians
 }
 
+/** Focus + select the floating toolbar's text input (used by +Text and dblclick). */
+export function focusInlineTextInput(): void {
+  setTimeout(() => {
+    const input = document.querySelector<HTMLInputElement>('.tool-text-input')
+    input?.focus()
+    input?.select()
+  }, 60)
+}
+
 export function Editor2D() {
   const canvasRef = useRef<HTMLCanvasElement>(null)
   const dragRef = useRef<DragState | null>(null)
@@ -283,6 +292,16 @@ export function Editor2D() {
     <div className="editor-wrap">
       {selected && (
         <div className="canvas-toolbar" role="toolbar" aria-label="Selected layer actions">
+          {selected.type === 'text' && (
+            <input
+              className="tool-text-input"
+              value={selected.text}
+              onChange={(e) => updateLayer(activePart, selected.id, { text: e.target.value })}
+              onKeyDown={(e) => { if (e.key === 'Enter') (e.target as HTMLInputElement).blur() }}
+              aria-label="Edit text content"
+              placeholder="Type your text…"
+            />
+          )}
           <button className="tool-btn" title="Bring forward" aria-label="Bring forward"
             onClick={() => moveLayer(activePart, selected.id, 1)}>⬆</button>
           <button className="tool-btn" title="Send backward" aria-label="Send backward"
@@ -308,6 +327,22 @@ export function Editor2D() {
             width={w}
             height={h}
             className="editor-canvas"
+            onDoubleClick={(e) => {
+              const canvas = canvasRef.current
+              const ctx = canvas?.getContext('2d')
+              if (!canvas || !ctx) return
+              const { x, y } = toCanvasCoords(e as unknown as React.PointerEvent)
+              for (let i = panel.layers.length - 1; i >= 0; i--) {
+                const layer = panel.layers[i]
+                if (layer.type !== 'text') continue
+                const bb = layerBBox(ctx, layer, spec.dims, EDITOR_PPI)
+                if (x >= bb.x && x <= bb.x + bb.w && y >= bb.y && y <= bb.y + bb.h) {
+                  selectLayer(layer.id)
+                  focusInlineTextInput()
+                  return
+                }
+              }
+            }}
             role="application"
             aria-label={`${spec.label} design canvas. Select a layer, then use arrow keys to nudge it (Shift for larger steps) or Delete to remove it.`}
             tabIndex={0}
