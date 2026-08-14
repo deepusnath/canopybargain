@@ -1,0 +1,55 @@
+name: Weekly catalog sync
+
+on:
+  schedule:
+    - cron: '0 9 * * 1' # Mondays 09:00 UTC
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  pull-requests: write
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - name: Re-scrape catalog
+        run: node scripts/scrape-catalog.mjs
+      - name: Open PR if the catalog changed
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          if git diff --quiet src/shop/products.json; then
+            echo "catalog unchanged"
+            exit 0
+          fi
+          BRANCH="catalog-sync/$(date +%Y-%m-%d)"
+          git config user.name "catalog-sync-bot"
+          git config user.email "actions@github.com"
+          git checkout -b "$BRANCH"
+          SUMMARY=$(node - << 'EOF'
+          const { execSync } = require('node:child_process')
+          const cur = require('./src/shop/products.json')
+          const prev = JSON.parse(execSync('git show HEAD:src/shop/products.json', { encoding: 'utf8' }))
+          const byId = (arr) => Object.fromEntries(arr.map((p) => [p.id, p]))
+          const a = byId(prev), b = byId(cur)
+          const added = Object.keys(b).filter((k) => !a[k])
+          const removed = Object.keys(a).filter((k) => !b[k])
+          const priced = Object.keys(b).filter((k) => a[k] && a[k].price !== b[k].price)
+          const lines = []
+          for (const k of added) lines.push(`- added: ${b[k].name}`)
+          for (const k of removed) lines.push(`- removed: ${a[k].name}`)
+          for (const k of priced) lines.push(`- price: ${b[k].name} $${a[k].price} → $${b[k].price}`)
+          console.log(lines.join('\n') || '- metadata/image changes only')
+          EOF
+          )
+          git add src/shop/products.json
+          git commit -m "chore: weekly catalog sync from live store"
+          git push origin "$BRANCH"
+          gh pr create --title "Catalog sync $(date +%Y-%m-%d)" \
+            --body "$(printf 'Automated weekly re-scrape of the live store catalog.\n\n## Changes\n%s\n' "$SUMMARY")" \
+            --base main --head "$BRANCH"
