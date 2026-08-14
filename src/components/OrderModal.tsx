@@ -20,7 +20,13 @@ function thumbnail(designPartId: string): string {
   return canvas.toDataURL('image/png')
 }
 
-export function OrderModal({ onClose }: { onClose: () => void }) {
+export function OrderModal({
+  onClose,
+  onAddToCart,
+}: {
+  onClose: () => void
+  onAddToCart?: () => void
+}) {
   const design = useStore((s) => s.design)
   const parts = enabledParts(design)
   const price = computePrice(design)
@@ -109,13 +115,18 @@ export function OrderModal({ onClose }: { onClose: () => void }) {
             <li className="price-total"><span>Total</span><span>{fmtUsd(price.total)}</span></li>
           </ul>
           <p className="muted">
-            This produces a quote request — no payment is taken. Download the order JSON and
-            print-proof artwork below and send them to your print shop.
+            Your design file ships with the order — the print shop gets every panel exactly
+            as shown here. You can also download the artwork for your records.
           </p>
         </div>
         <div className="modal-foot">
           <button className="btn" onClick={downloadArtwork}>Download panel artwork (PNG)</button>
-          <button className="btn btn-primary" onClick={downloadOrder}>Download order JSON</button>
+          <button className="btn" onClick={downloadOrder}>Download order JSON</button>
+          {onAddToCart && (
+            <button className="btn btn-primary" onClick={onAddToCart}>
+              Add to cart — {fmtUsd(price.total)}
+            </button>
+          )}
         </div>
       </div>
     </div>
