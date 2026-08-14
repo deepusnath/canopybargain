@@ -5,6 +5,7 @@ import {
   placeOrder, getOrder, updateOrderDelivery, type ShippingInfo,
 } from '../shop/cartStore'
 import { deliverOrder, openStripeLink, paymentConfig } from '../shop/payment'
+import { track } from '../shop/analytics'
 import { productById, fmtMoney, sizedImage } from '../shop/catalog'
 import { ProductArt } from '../components/ProductArt'
 import { useParams } from 'react-router-dom'
@@ -119,7 +120,10 @@ export function CheckoutPage() {
   const navigate = useNavigate()
   const { webhookUrl, stripeLink } = paymentConfig()
 
-  useEffect(() => { document.title = 'Checkout — CanopyBargain' }, [])
+  useEffect(() => {
+    document.title = 'Checkout — CanopyBargain'
+    track('begin_checkout')
+  }, [])
 
   if (items.length === 0) {
     return (
@@ -147,6 +151,7 @@ export function CheckoutPage() {
     if (problems.length > 0) return
     setPlacing(true)
     const order = placeOrder(items, promo, info)
+    track('place_order', { total: order.total })
     const delivery = await deliverOrder(order)
     updateOrderDelivery(order.id, delivery)
     openStripeLink(order.id) // no-op unless a Stripe Payment Link is configured

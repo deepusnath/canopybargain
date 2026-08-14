@@ -6,10 +6,12 @@ import { HomePage } from './pages/HomePage'
 import { ShopPage, ProductPage } from './pages/ShopPage'
 import { CartPage, CheckoutPage, OrderPage } from './pages/CartPage'
 import { SiteHeader, SiteFooter } from './components/SiteChrome'
+import { initAnalytics, trackPageview } from './shop/analytics'
 import './styles.css'
 
 // app booted successfully — re-arm the stale-deploy reload guard in index.html
 sessionStorage.removeItem('cb-reloaded')
+initAnalytics()
 
 // three.js + the studio only load when a customer opens the Design Studio
 const ConfiguratorPage = lazy(() => import('./App'))
@@ -24,7 +26,10 @@ function StudioFallback() {
 
 function ScrollToTop() {
   const { pathname } = useLocation()
-  useEffect(() => window.scrollTo(0, 0), [pathname])
+  useEffect(() => {
+    window.scrollTo(0, 0)
+    trackPageview(pathname)
+  }, [pathname])
   return null
 }
 

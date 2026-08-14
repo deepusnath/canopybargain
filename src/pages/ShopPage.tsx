@@ -6,6 +6,7 @@ import {
 } from '../shop/catalog'
 import { ProductArt } from '../components/ProductArt'
 import { useCart } from '../shop/cartStore'
+import { track } from '../shop/analytics'
 
 export function ProductImage({ product, className }: { product: Product; className?: string }) {
   if (product.images.length > 0) {
@@ -115,6 +116,7 @@ export function ProductPage() {
 
   useEffect(() => {
     document.title = product ? `${product.name} — CanopyBargain` : 'Product — CanopyBargain'
+    if (product) track('view_product', { product: product.id })
     setVariantId(product?.variants.find((v) => v.available)?.id ?? product?.variants[0]?.id)
     setImageIdx(0)
     setQty(1)
@@ -145,6 +147,7 @@ export function ProductPage() {
   }
 
   const add = () => {
+    track('add_to_cart', { product: product.id })
     addItem(product.id, {
       variantId: variant?.id,
       variantLabel: variant?.label,

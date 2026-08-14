@@ -12,6 +12,7 @@ import { productById, studioProductForSize } from './shop/catalog'
 import { partSpecs } from './model/parts'
 import { renderPanel, canvasSize } from './render/panelRenderer'
 import { encodeDesignToParam, decodeDesignFromParam } from './shop/shareLink'
+import { track } from './shop/analytics'
 import type { TentSize } from './model/types'
 
 /** Each studio size maps to the real store product for that custom canopy. */
@@ -58,6 +59,8 @@ export default function ConfiguratorPage() {
 
   useEffect(() => {
     document.title = 'Design Studio — CanopyBargain'
+    track('open_studio', productId ? { product: productId } : undefined)
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
   // Cmd/Ctrl+Z undo, Shift+Cmd/Ctrl+Z or Ctrl+Y redo (skipped while typing)
@@ -130,6 +133,7 @@ export default function ConfiguratorPage() {
 
   const addToCart = () => {
     const d = useStore.getState().design
+    track('add_to_cart', { product: customProductIdFor(d.tentSize), custom: 1 })
     const pid = customProductIdFor(d.tentSize)
     if (editKey) removeItem(editKey)
     addItem(pid, {
