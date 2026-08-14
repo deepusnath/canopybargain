@@ -2,13 +2,13 @@ import { useStore } from '../store'
 import type { PanelDesign, PartId } from '../model/types'
 import { partSpecs } from '../model/parts'
 
-/** A side "has content" when it carries layers, a pattern, or a non-default background. */
+/**
+ * A side "has content" when it carries layers (text, logos, shapes, QR) —
+ * the things easy to lose track of on a side you're not looking at.
+ * Background color/pattern are excluded: they're plainly visible in 3D.
+ */
 function hasContent(panel: PanelDesign): boolean {
-  return (
-    panel.layers.length > 0 ||
-    (panel.background.pattern !== undefined && panel.background.pattern.id !== 'none') ||
-    panel.background.color.toLowerCase() !== '#ffffff'
-  )
+  return panel.layers.length > 0
 }
 
 const GROUPS: Array<{ label: string; ids: PartId[] }> = [
