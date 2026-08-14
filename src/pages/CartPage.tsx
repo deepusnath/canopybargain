@@ -14,9 +14,10 @@ function LineArt({ item }: { item: ReturnType<typeof useCart.getState>['items'][
     return <img src={item.custom.thumbnail} alt="Your custom design" className="line-art line-thumb" />
   }
   if (!product) return null
-  const variant = product.variants?.find((v) => v.id === item.variantId)
-  const art = variant ? { ...product.art, color: variant.color } : product.art
-  return <ProductArt art={art} className="line-art" />
+  const variant = product.variants.find((v) => v.id === item.variantId)
+  const src = variant?.imageSrc ?? product.images[0]
+  if (src) return <img src={src} alt={product.name} className="line-art line-thumb" loading="lazy" />
+  return <ProductArt art={product.art} className="line-art" />
 }
 
 export function CartPage() {

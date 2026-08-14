@@ -9,6 +9,9 @@ export interface CartItem {
   key: string // unique line key
   productId: string
   variantId?: string
+  variantLabel?: string
+  /** unit price snapped at add-to-cart time (variant-level pricing) */
+  unitPrice?: number
   qty: number
   /** custom studio designs attach the full design + a preview + studio price */
   custom?: {
@@ -40,6 +43,7 @@ export interface Order {
 
 export function lineUnitPrice(item: CartItem): number {
   if (item.custom) return item.custom.price
+  if (item.unitPrice !== undefined) return item.unitPrice
   return productById(item.productId)?.price ?? 0
 }
 
@@ -47,17 +51,23 @@ export function lineName(item: CartItem): string {
   const p = productById(item.productId)
   if (!p) return 'Unknown item'
   if (item.custom) return `${p.name} — “${item.custom.design.name}”`
-  if (item.variantId && p.variants) {
-    const v = p.variants.find((v) => v.id === item.variantId)
-    if (v) return `${p.name} (${v.label})`
-  }
+  if (item.variantLabel && item.variantLabel !== 'Default') return `${p.name} (${item.variantLabel})`
   return p.name
 }
 
 interface CartState {
   items: CartItem[]
   promo: string | null
-  addItem: (productId: string, opts?: { variantId?: string; qty?: number; custom?: CartItem['custom'] }) => void
+  addItem: (
+    productId: string,
+    opts?: {
+      variantId?: string
+      variantLabel?: string
+      unitPrice?: number
+      qty?: number
+      custom?: CartItem['custom']
+    },
+  ) => void
   setQty: (key: string, qty: number) => void
   removeItem: (key: string) => void
   clear: () => void
@@ -82,7 +92,7 @@ export const useCart = create<CartState>((set, get) => ({
 
   addItem: (productId, opts = {}) =>
     set((s) => {
-      const { variantId, qty = 1, custom } = opts
+      const { variantId, variantLabel, unitPrice, qty = 1, custom } = opts
       // merge identical non-custom lines
       if (!custom) {
         const existing = s.items.find(
@@ -97,7 +107,9 @@ export const useCart = create<CartState>((set, get) => ({
         }
       }
       const key = `${productId}-${Date.now().toString(36)}-${Math.random().toString(36).slice(2, 6)}`
-      return { items: [...s.items, { key, productId, variantId, qty, custom }] }
+      return {
+        items: [...s.items, { key, productId, variantId, variantLabel, unitPrice, qty, custom }],
+      }
     }),
 
   setQty: (key, qty) =>

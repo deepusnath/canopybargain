@@ -8,14 +8,14 @@ import { Sidebar } from './components/Sidebar'
 import { OrderModal } from './components/OrderModal'
 import { TentScene } from './three/TentScene'
 import { useCart } from './shop/cartStore'
-import { productById } from './shop/catalog'
+import { productById, studioProductForSize } from './shop/catalog'
 import { partSpecs } from './model/parts'
 import { renderPanel, canvasSize } from './render/panelRenderer'
 import type { TentSize } from './model/types'
 
-/** Custom product ids are keyed by tent size so the cart maps 1:1. */
+/** Each studio size maps to the real store product for that custom canopy. */
 export function customProductIdFor(size: TentSize): string {
-  return `custom-${size}`
+  return studioProductForSize(size)?.id ?? `custom-${size}`
 }
 
 function designThumbnail(): string {
