@@ -45,12 +45,37 @@ export default function ConfiguratorPage() {
   const addItem = useCart((s) => s.addItem)
   const removeItem = useCart((s) => s.removeItem)
 
+  const canUndo = useStore((s) => s.canUndo)
+  const canRedo = useStore((s) => s.canRedo)
+  const undo = useStore((s) => s.undo)
+  const redo = useStore((s) => s.redo)
+
   const [orderOpen, setOrderOpen] = useState(false)
   const [addedMsg, setAddedMsg] = useState(false)
   const price = computePrice(design)
 
   useEffect(() => {
     document.title = 'Design Studio — CanopyBargain'
+  }, [])
+
+  // Cmd/Ctrl+Z undo, Shift+Cmd/Ctrl+Z or Ctrl+Y redo (skipped while typing)
+  useEffect(() => {
+    const onKey = (e: KeyboardEvent) => {
+      const target = e.target as HTMLElement | null
+      if (target && /^(INPUT|TEXTAREA|SELECT)$/.test(target.tagName)) return
+      const mod = e.metaKey || e.ctrlKey
+      if (!mod) return
+      if (e.key.toLowerCase() === 'z') {
+        e.preventDefault()
+        if (e.shiftKey) useStore.getState().redo()
+        else useStore.getState().undo()
+      } else if (e.key.toLowerCase() === 'y') {
+        e.preventDefault()
+        useStore.getState().redo()
+      }
+    }
+    window.addEventListener('keydown', onKey)
+    return () => window.removeEventListener('keydown', onKey)
   }, [])
 
   // Entering via a product page presets the size; entering via a cart line
@@ -94,6 +119,12 @@ export default function ConfiguratorPage() {
           onChange={(e) => setName(e.target.value)}
           aria-label="Design name"
         />
+        <div className="undo-group">
+          <button className="btn btn-sm btn-dark" onClick={undo} disabled={!canUndo}
+            title="Undo (⌘Z)" aria-label="Undo">↩</button>
+          <button className="btn btn-sm btn-dark" onClick={redo} disabled={!canRedo}
+            title="Redo (⇧⌘Z)" aria-label="Redo">↪</button>
+        </div>
         <div className="header-right">
           <span className="price" title="Live price — breakdown in review">{fmtUsd(price.total)}</span>
           <button className="btn btn-primary" onClick={() => setOrderOpen(true)}>

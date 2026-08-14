@@ -386,6 +386,10 @@ body {
   display: flex; align-items: center; gap: 16px; background: #1c2530; color: #fff; padding: 8px 16px;
 }
 .studio-title { font-weight: 800; white-space: nowrap; }
+.undo-group { display: flex; gap: 4px; }
+.btn-dark { background: #2a3542; border-color: #3a4654; color: #dfe6ee; }
+.btn-dark:hover { background: #33404f; border-color: #4a5867; }
+.btn-dark:disabled { opacity: 0.35; cursor: default; }
 
 /* responsive */
 @media (max-width: 1100px) {

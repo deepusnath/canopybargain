@@ -28,6 +28,10 @@ export interface AppState {
   loadDesign: (d: Design) => void
   reset: () => void
   bumpRender: () => void
+  canUndo: boolean
+  canRedo: boolean
+  undo: () => void
+  redo: () => void
 }
 
 /** Which parts an edit should fan out to under "same design on 4 sides". */
@@ -182,7 +186,67 @@ export const useStore = create<AppState>((set, get) => ({
   loadDesign: (d) => set({ design: d, activePart: 'peak0', selectedLayerId: null }),
   reset: () => set({ design: newDesign(), activePart: 'peak0', selectedLayerId: null }),
   bumpRender: () => set((s) => ({ renderTick: s.renderTick + 1 })),
+
+  canUndo: false,
+  canRedo: false,
+  undo: () => restoreFromHistory('undo'),
+  redo: () => restoreFromHistory('redo'),
 }))
+
+// ---- undo/redo history ----
+// Every design mutation funnels through set({design}), so history is captured
+// from a store subscription. Captures are debounced so a drag burst collapses
+// into one undo step; the pre-burst snapshot is what gets pushed.
+
+const HISTORY_LIMIT = 50
+const past: Design[] = []
+const future: Design[] = []
+let lastSnap: Design = JSON.parse(JSON.stringify(useStore.getState().design))
+let restoring = false
+let captureTimer: ReturnType<typeof setTimeout> | null = null
+
+function cloneDesign(d: Design): Design {
+  return JSON.parse(JSON.stringify(d)) as Design
+}
+
+function commitCapture(): void {
+  captureTimer = null
+  const current = useStore.getState().design
+  past.push(lastSnap)
+  if (past.length > HISTORY_LIMIT) past.shift()
+  future.length = 0
+  lastSnap = cloneDesign(current)
+  useStore.setState({ canUndo: true, canRedo: false })
+}
+
+useStore.subscribe((state, prev) => {
+  if (restoring) return
+  if (state.design === prev.design) return
+  if (captureTimer) clearTimeout(captureTimer)
+  captureTimer = setTimeout(commitCapture, 350)
+})
+
+function restoreFromHistory(dir: 'undo' | 'redo'): void {
+  // flush a pending capture so the in-flight burst becomes undoable first
+  if (captureTimer) {
+    clearTimeout(captureTimer)
+    commitCapture()
+  }
+  const source = dir === 'undo' ? past : future
+  const target = dir === 'undo' ? future : past
+  const snapshot = source.pop()
+  if (!snapshot) return
+  target.push(cloneDesign(useStore.getState().design))
+  restoring = true
+  lastSnap = cloneDesign(snapshot)
+  useStore.setState({
+    design: snapshot,
+    selectedLayerId: null,
+    canUndo: past.length > 0,
+    canRedo: future.length > 0,
+  })
+  restoring = false
+}
 
 // ---- persistence ----
 
