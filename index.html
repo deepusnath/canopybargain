@@ -9,6 +9,22 @@
   </head>
   <body>
     <div id="root"></div>
+    <script>
+      // Stale-deploy recovery: if a cached index.html points at bundles that a
+      // newer deploy removed, the script fails to load and the page stays
+      // blank. Reload once (bypassing cache) instead of stranding the user.
+      window.addEventListener(
+        'error',
+        function (e) {
+          var t = e.target
+          if (t && (t.tagName === 'SCRIPT' || t.tagName === 'LINK') && !sessionStorage.getItem('cb-reloaded')) {
+            sessionStorage.setItem('cb-reloaded', '1')
+            location.reload()
+          }
+        },
+        true
+      )
+    </script>
     <script type="module" src="/src/main.tsx"></script>
   </body>
 </html>

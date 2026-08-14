@@ -9,6 +9,9 @@ import { CartPage, CheckoutPage, OrderPage } from './pages/CartPage'
 import { SiteHeader, SiteFooter } from './components/SiteChrome'
 import './styles.css'
 
+// app booted successfully — re-arm the stale-deploy reload guard in index.html
+sessionStorage.removeItem('cb-reloaded')
+
 function ScrollToTop() {
   const { pathname } = useLocation()
   useEffect(() => window.scrollTo(0, 0), [pathname])
