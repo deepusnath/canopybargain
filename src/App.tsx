@@ -63,11 +63,20 @@ export default function ConfiguratorPage() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
-  // Cmd/Ctrl+Z undo, Shift+Cmd/Ctrl+Z or Ctrl+Y redo (skipped while typing)
+  // Cmd/Ctrl+Z undo, Shift+Cmd/Ctrl+Z or Ctrl+Y redo. Defer to the browser's
+  // own undo only inside real text entry — checkboxes, radios, sliders, and
+  // swatches keep focus after a click and must not swallow the shortcut.
   useEffect(() => {
+    const isTextEntry = (el: HTMLElement | null): boolean => {
+      if (!el) return false
+      if (el.isContentEditable || el.tagName === 'TEXTAREA') return true
+      return (
+        el.tagName === 'INPUT' &&
+        !/^(checkbox|radio|range|color|button|submit|file)$/.test((el as HTMLInputElement).type)
+      )
+    }
     const onKey = (e: KeyboardEvent) => {
-      const target = e.target as HTMLElement | null
-      if (target && /^(INPUT|TEXTAREA|SELECT)$/.test(target.tagName)) return
+      if (isTextEntry(e.target as HTMLElement | null)) return
       const mod = e.metaKey || e.ctrlKey
       if (!mod) return
       if (e.key.toLowerCase() === 'z') {
