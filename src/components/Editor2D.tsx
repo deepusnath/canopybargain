@@ -33,15 +33,15 @@ export function Editor2D() {
     })
   }, [])
 
+  // Draw AFTER React commits: React re-applies the canvas width/height
+  // attributes during render (which clears the bitmap), so painting from a
+  // store subscription that fires pre-commit leaves a blank canvas whenever
+  // the active part's dimensions change. Effects run post-commit.
   useEffect(() => {
     draw()
-    const unsub = useStore.subscribe(draw)
-    const unsubImg = onImageReady(draw)
-    return () => {
-      unsub()
-      unsubImg()
-    }
-  }, [draw])
+  }, [draw, design, activePart, selectedLayerId])
+
+  useEffect(() => onImageReady(draw), [draw])
 
   const toCanvasCoords = (e: React.PointerEvent): { x: number; y: number } => {
     const canvas = canvasRef.current!
