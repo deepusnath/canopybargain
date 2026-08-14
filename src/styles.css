@@ -107,6 +107,15 @@ body {
 .layer-on { border-color: var(--blue); background: #eef5fd; }
 .layer-props { border-top: 1px dashed var(--line); padding-top: 10px; display: flex; flex-direction: column; gap: 10px; }
 
+.tpl-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+.tpl-card {
+  border: 1px solid var(--line); background: #fff; border-radius: 8px; padding: 6px;
+  cursor: pointer; font: inherit; font-size: 12px; font-weight: 600; color: var(--ink);
+  display: flex; flex-direction: column; gap: 4px; align-items: center;
+}
+.tpl-card:hover { border-color: var(--accent); background: #fffdf4; }
+.tpl-thumb-img { width: 100%; height: auto; border-radius: 4px; background: #f4f6f8; }
+
 .slot-list { list-style: none; padding: 0; display: flex; flex-direction: column; gap: 4px; }
 .slot-row { display: flex; align-items: center; gap: 6px; }
 .slot-name { flex: 1; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }

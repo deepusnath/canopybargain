@@ -7,6 +7,27 @@ import { PATTERNS } from '../model/patterns'
 import { fileToDataUrl } from '../render/imageCache'
 import { imageDpi } from '../render/panelRenderer'
 import { DEMO_DESIGNS } from '../shop/demoDesigns'
+import { TEMPLATES, applyTemplate, type Template } from '../shop/templates'
+import { renderPanel, canvasSize } from '../render/panelRenderer'
+import { useMemo } from 'react'
+
+/** Live-rendered template thumbnail: the template's own peak, drawn small. */
+function TemplateThumb({ tpl }: { tpl: Template }) {
+  const src = useMemo(() => {
+    const { peak } = tpl.build()
+    const dims = { wIn: 120, hIn: 87.22, shape: 'triangle' as const }
+    const ppi = 1.6
+    const cnv = document.createElement('canvas')
+    const { w, h } = canvasSize(dims, ppi)
+    cnv.width = w
+    cnv.height = h
+    const ctx = cnv.getContext('2d')
+    if (!ctx) return ''
+    renderPanel(ctx, peak, dims, { ppi })
+    return cnv.toDataURL('image/png')
+  }, [tpl])
+  return <img src={src} alt="" className="tpl-thumb-img" />
+}
 
 const PALETTE = [
   '#ffffff', '#111111', '#e63946', '#f77f00', '#fcbf49',
@@ -272,6 +293,23 @@ export function Sidebar() {
             </div>
           </div>
         )}
+      </Section>
+
+      <Section title="🎯 Templates" defaultOpen={false}>
+        <p className="muted">One-click starting designs — recolor and edit anything after applying.</p>
+        <div className="tpl-grid">
+          {TEMPLATES.map((tpl) => (
+            <button
+              key={tpl.id}
+              className="tpl-card"
+              onClick={() => st().loadDesign(applyTemplate(st().design, tpl))}
+              title={`Apply ${tpl.label}`}
+            >
+              <TemplateThumb tpl={tpl} />
+              <span>{tpl.label}</span>
+            </button>
+          ))}
+        </div>
       </Section>
 
       <Section title="✨ Quick Design" defaultOpen={false}>
