@@ -198,7 +198,7 @@ export function Editor2D() {
             layerId: sel.id,
             startDist: Math.max(8, Math.hypot(x - g.cx, y - g.cy)),
             startSizeIn: sel.type === 'text' ? sel.sizeIn : undefined,
-            startScale: sel.type === 'image' ? sel.scale : undefined,
+            startScale: sel.type !== 'text' ? sel.scale : undefined,
           }
           capture(canvas, e.pointerId)
           return
@@ -251,7 +251,7 @@ export function Editor2D() {
         updateLayer(activePart, drag.layerId, {
           sizeIn: Math.min(60, Math.max(1, drag.startSizeIn * f)),
         })
-      } else if (layer.type === 'image' && drag.startScale !== undefined) {
+      } else if (layer.type !== 'text' && drag.startScale !== undefined) {
         updateLayer(activePart, drag.layerId, {
           scale: Math.min(2, Math.max(0.02, drag.startScale * f)),
         })

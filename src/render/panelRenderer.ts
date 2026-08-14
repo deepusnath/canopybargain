@@ -1,6 +1,31 @@
-import type { Layer, PanelDesign, PanelDims, TextLayer, ImageLayer } from '../model/types'
+import type { Layer, PanelDesign, PanelDims, TextLayer, ImageLayer, ShapeLayer, QrLayer } from '../model/types'
 import { patternById } from '../model/patterns'
 import { getImage } from './imageCache'
+import qrcodeGenerator from 'qrcode-generator'
+
+// QR matrices are pure functions of the url — cache across redraws
+const qrCache = new Map<string, boolean[][]>()
+function qrMatrix(url: string): boolean[][] | null {
+  const hit = qrCache.get(url)
+  if (hit) return hit
+  try {
+    const qr = qrcodeGenerator(0, 'M')
+    qr.addData(url)
+    qr.make()
+    const n = qr.getModuleCount()
+    const grid: boolean[][] = []
+    for (let r = 0; r < n; r++) {
+      const row: boolean[] = []
+      for (let c = 0; c < n; c++) row.push(qr.isDark(r, c))
+      grid.push(row)
+    }
+    if (qrCache.size > 40) qrCache.clear()
+    qrCache.set(url, grid)
+    return grid
+  } catch {
+    return null // url too long for the symbol version
+  }
+}
 
 export interface RenderOpts {
   /** pixels per inch of print space */
@@ -119,8 +144,69 @@ function drawLayer(
   ctx.translate(cx, cy)
   ctx.rotate((layer.rotation * Math.PI) / 180)
   if (layer.type === 'text') drawText(ctx, layer, opts.ppi)
-  else drawImage(ctx, layer, w)
+  else if (layer.type === 'image') drawImage(ctx, layer, w)
+  else if (layer.type === 'shape') drawShape(ctx, layer, w)
+  else drawQr(ctx, layer, w)
   ctx.restore()
+}
+
+function drawShape(ctx: CanvasRenderingContext2D, layer: ShapeLayer, panelWpx: number): void {
+  const w = layer.scale * panelWpx
+  const h = w * layer.aspect
+  ctx.globalAlpha = layer.opacity
+  ctx.fillStyle = layer.color
+  switch (layer.shape) {
+    case 'rect':
+      ctx.fillRect(-w / 2, -h / 2, w, h)
+      break
+    case 'circle':
+      ctx.beginPath()
+      ctx.ellipse(0, 0, w / 2, h / 2, 0, 0, Math.PI * 2)
+      ctx.fill()
+      break
+    case 'star': {
+      const outer = Math.min(w, h) / 2
+      const inner = outer * 0.42
+      ctx.beginPath()
+      for (let i = 0; i < 10; i++) {
+        const r = i % 2 === 0 ? outer : inner
+        const a = (i * Math.PI) / 5 - Math.PI / 2
+        const px = Math.cos(a) * r
+        const py = Math.sin(a) * r
+        if (i === 0) ctx.moveTo(px, py)
+        else ctx.lineTo(px, py)
+      }
+      ctx.closePath()
+      ctx.fill()
+      break
+    }
+    case 'line':
+      ctx.fillRect(-w / 2, -h / 2, w, Math.max(2, h))
+      break
+  }
+  ctx.globalAlpha = 1
+}
+
+function drawQr(ctx: CanvasRenderingContext2D, layer: QrLayer, panelWpx: number): void {
+  const grid = qrMatrix(layer.url || 'https://canopybargain.com')
+  const size = layer.scale * panelWpx
+  if (!grid) {
+    ctx.fillStyle = 'rgba(0,0,0,0.08)'
+    ctx.fillRect(-size / 2, -size / 2, size, size)
+    return
+  }
+  const n = grid.length
+  const cell = size / (n + 4) // 2-module quiet zone each side
+  // white backing incl. quiet zone keeps the code scannable on any background
+  ctx.fillStyle = '#ffffff'
+  ctx.fillRect(-size / 2, -size / 2, size, size)
+  ctx.fillStyle = layer.dark
+  const origin = -size / 2 + cell * 2
+  for (let r = 0; r < n; r++) {
+    for (let c = 0; c < n; c++) {
+      if (grid[r][c]) ctx.fillRect(origin + c * cell, origin + r * cell, cell + 0.5, cell + 0.5)
+    }
+  }
 }
 
 function fontString(layer: TextLayer, px: number): string {
@@ -196,6 +282,15 @@ export function layerBBox(
     const wpx = layer.scale * w
     const hpx = wpx * (layer.naturalH / layer.naturalW)
     return { x: cx - wpx / 2, y: cy - hpx / 2, w: wpx, h: hpx }
+  }
+  if (layer.type === 'shape') {
+    const wpx = layer.scale * w
+    const hpx = wpx * layer.aspect
+    return { x: cx - wpx / 2, y: cy - hpx / 2, w: wpx, h: hpx }
+  }
+  if (layer.type === 'qr') {
+    const s = layer.scale * w
+    return { x: cx - s / 2, y: cy - s / 2, w: s, h: s }
   }
   const px = layer.sizeIn * ppi
   ctx.font = fontString(layer, px)

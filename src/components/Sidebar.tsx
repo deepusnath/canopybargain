@@ -1,6 +1,6 @@
 import { useRef, useState } from 'react'
 import { useStore, listSlots, saveSlot, loadSlot, deleteSlot } from '../store'
-import type { Design, ImageLayer, Layer, TentSize, TextLayer } from '../model/types'
+import type { Design, ImageLayer, Layer, QrLayer, ShapeLayer, TentSize, TextLayer } from '../model/types'
 import { uid } from '../model/types'
 import { partSpecs } from '../model/parts'
 import { PATTERNS } from '../model/patterns'
@@ -95,6 +95,24 @@ export function Sidebar() {
       id: uid('text'), type: 'text', text: 'Your Text', font: 'Arial',
       sizeIn: Math.max(4, spec.dims.hIn / 8), color: '#111111', weight: 'bold',
       arc: 0, rotation: 0, x: 0.5, y: 0.5,
+    }
+    st().addLayer(activePart, layer)
+  }
+
+  const addShape = (shape: ShapeLayer['shape']) => {
+    const layer: ShapeLayer = {
+      id: uid('shape'), type: 'shape', shape, color: '#1d7ed8', opacity: 1,
+      scale: 0.2, aspect: shape === 'line' ? 0.04 : 1, rotation: 0, x: 0.5, y: 0.5,
+    }
+    st().addLayer(activePart, layer)
+  }
+
+  const addQr = () => {
+    const url = prompt('QR code destination URL:', 'https://')
+    if (!url || url === 'https://') return
+    const layer: QrLayer = {
+      id: uid('qr'), type: 'qr', url: url.trim(), dark: '#111111',
+      scale: 0.18, rotation: 0, x: 0.5, y: 0.5,
     }
     st().addLayer(activePart, layer)
   }
@@ -220,10 +238,20 @@ export function Sidebar() {
         <div className="btn-row">
           <button className="btn" onClick={addText}>+ Text</button>
           <button className="btn" onClick={() => logoInputRef.current?.click()}>+ Logo / Image</button>
+          <button className="btn" onClick={addQr}>+ QR Code</button>
           <input
             ref={logoInputRef} type="file" accept="image/png,image/jpeg,image/svg+xml" hidden
             onChange={(e) => onLogoFile(e.target.files?.[0])}
           />
+        </div>
+        <div className="field">
+          <span>Shapes</span>
+          <div className="btn-row">
+            <button className="btn btn-sm" onClick={() => addShape('rect')} title="Rectangle">▮ Rect</button>
+            <button className="btn btn-sm" onClick={() => addShape('circle')} title="Circle">● Circle</button>
+            <button className="btn btn-sm" onClick={() => addShape('star')} title="Star">★ Star</button>
+            <button className="btn btn-sm" onClick={() => addShape('line')} title="Line">─ Line</button>
+          </div>
         </div>
       </Section>
 
@@ -236,7 +264,10 @@ export function Sidebar() {
                 className={`layer-item ${l.id === selectedLayerId ? 'layer-on' : ''}`}
                 onClick={() => st().selectLayer(l.id)}
               >
-                {l.type === 'text' ? `T “${l.text.slice(0, 18)}”` : '🖼 Image'}
+                {l.type === 'text' && `T “${l.text.slice(0, 18)}”`}
+                {l.type === 'image' && '🖼 Image'}
+                {l.type === 'shape' && `⬛ Shape (${l.shape})`}
+                {l.type === 'qr' && `▦ QR — ${l.url.slice(0, 22)}`}
                 {l.locked ? ' 🔒' : ''}
               </button>
             </li>
@@ -279,6 +310,31 @@ export function Sidebar() {
                 {imageDpi(selected, spec.dims) < 100 && (
                   <p className="warn">⚠ Low resolution: ~{Math.round(imageDpi(selected, spec.dims))} DPI at print size. 100+ recommended.</p>
                 )}
+              </>
+            )}
+            {selected.type === 'shape' && (
+              <>
+                <label className="field"><span>Size ({(selected.scale * 100).toFixed(0)}% of panel width)</span>
+                  <input type="range" min={0.03} max={1} step={0.01} value={selected.scale}
+                    onChange={(e) => updateSelected({ scale: Number(e.target.value) })} />
+                </label>
+                <label className="field"><span>Opacity ({Math.round(selected.opacity * 100)}%)</span>
+                  <input type="range" min={0.1} max={1} step={0.05} value={selected.opacity}
+                    onChange={(e) => updateSelected({ opacity: Number(e.target.value) })} />
+                </label>
+                <ColorRow value={selected.color} onChange={(color) => updateSelected({ color })} />
+              </>
+            )}
+            {selected.type === 'qr' && (
+              <>
+                <label className="field"><span>Destination URL</span>
+                  <input value={selected.url} onChange={(e) => updateSelected({ url: e.target.value })} />
+                </label>
+                <label className="field"><span>Size ({(selected.scale * 100).toFixed(0)}% of panel width)</span>
+                  <input type="range" min={0.06} max={0.6} step={0.01} value={selected.scale}
+                    onChange={(e) => updateSelected({ scale: Number(e.target.value) })} />
+                </label>
+                <ColorRow value={selected.dark} onChange={(dark) => updateSelected({ dark })} />
               </>
             )}
             <label className="field"><span>Rotation ({selected.rotation}°)</span>

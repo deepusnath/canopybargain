@@ -56,7 +56,35 @@ export interface ImageLayer {
   y: number
 }
 
-export type Layer = TextLayer | ImageLayer
+export interface ShapeLayer {
+  id: string
+  type: 'shape'
+  locked?: boolean
+  shape: 'rect' | 'circle' | 'star' | 'line'
+  color: string
+  opacity: number // 0..1
+  /** width as a fraction of panel width; height = width * aspect */
+  scale: number
+  aspect: number
+  rotation: number
+  x: number
+  y: number
+}
+
+export interface QrLayer {
+  id: string
+  type: 'qr'
+  locked?: boolean
+  url: string
+  dark: string
+  /** width as a fraction of panel width (QR is square) */
+  scale: number
+  rotation: number
+  x: number
+  y: number
+}
+
+export type Layer = TextLayer | ImageLayer | ShapeLayer | QrLayer
 
 export interface PanelDesign {
   enabled: boolean
