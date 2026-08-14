@@ -190,10 +190,14 @@ body {
   .scene-col { grid-column: 1 / -1; min-height: 380px; }
 }
 @media (max-width: 760px) {
+  /* release the viewport-height lock: stack panels and scroll the page */
+  .app { height: auto; min-height: 100%; }
   .main { grid-template-columns: 1fr; }
-  .sidebar { order: 2; max-height: 50vh; }
+  .sidebar { order: 2; max-height: none; overflow-y: visible; }
   .editor-col { order: 1; }
-  .scene-col { order: 3; }
+  .editor-stage { min-height: 260px; }
+  .editor-canvas { max-height: 40vh; }
+  .scene-col { order: 3; min-height: 340px; }
   .header { flex-wrap: wrap; }
   .design-name { flex: 1 1 120px; }
 }
