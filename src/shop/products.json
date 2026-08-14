@@ -19,6 +19,7 @@
       {
         "id": "46358812917928",
         "label": "Default",
+        "optionValues": [],
         "price": 669,
         "compareAt": null,
         "available": true,
@@ -56,6 +57,7 @@
       {
         "id": "46359097245864",
         "label": "Default",
+        "optionValues": [],
         "price": 769,
         "compareAt": null,
         "available": true,
@@ -93,6 +95,7 @@
       {
         "id": "52470921724072",
         "label": "Default",
+        "optionValues": [],
         "price": 299,
         "compareAt": null,
         "available": true,
@@ -129,6 +132,9 @@
       {
         "id": "51786021044392",
         "label": "10x20 Backwall Custom",
+        "optionValues": [
+          "10x20 Backwall Custom"
+        ],
         "price": 300,
         "compareAt": 300,
         "available": false,
@@ -162,6 +168,9 @@
       {
         "id": "55253617115304",
         "label": "10x10",
+        "optionValues": [
+          "10x10"
+        ],
         "price": 399,
         "compareAt": null,
         "available": true,
@@ -202,6 +211,9 @@
       {
         "id": "55253603909800",
         "label": "5x5",
+        "optionValues": [
+          "5x5"
+        ],
         "price": 189,
         "compareAt": null,
         "available": true,
@@ -234,6 +246,7 @@
       {
         "id": "55258611548328",
         "label": "Default",
+        "optionValues": [],
         "price": 199,
         "compareAt": 239,
         "available": true,
@@ -269,6 +282,9 @@
       {
         "id": "55254664249512",
         "label": "11 FT",
+        "optionValues": [
+          "11 FT"
+        ],
         "price": 49,
         "compareAt": null,
         "available": true,
@@ -277,6 +293,9 @@
       {
         "id": "55254664282280",
         "label": "14 FT",
+        "optionValues": [
+          "14 FT"
+        ],
         "price": 69,
         "compareAt": null,
         "available": true,
@@ -311,6 +330,9 @@
       {
         "id": "55256901517480",
         "label": "4ft",
+        "optionValues": [
+          "4ft"
+        ],
         "price": 45,
         "compareAt": null,
         "available": true,
@@ -319,6 +341,9 @@
       {
         "id": "55256901550248",
         "label": "5ft",
+        "optionValues": [
+          "5ft"
+        ],
         "price": 60,
         "compareAt": null,
         "available": true,
@@ -327,6 +352,9 @@
       {
         "id": "55256901583016",
         "label": "6ft",
+        "optionValues": [
+          "6ft"
+        ],
         "price": 75,
         "compareAt": null,
         "available": true,
@@ -335,6 +363,9 @@
       {
         "id": "55256901615784",
         "label": "8ft",
+        "optionValues": [
+          "8ft"
+        ],
         "price": 90,
         "compareAt": null,
         "available": true,
@@ -367,6 +398,7 @@
       {
         "id": "29480586346556",
         "label": "Default",
+        "optionValues": [],
         "price": 164.99,
         "compareAt": null,
         "available": false,
@@ -413,6 +445,10 @@
       {
         "id": "48746777084072",
         "label": "10x20 / black",
+        "optionValues": [
+          "10x20",
+          "black"
+        ],
         "price": 239,
         "compareAt": 369,
         "available": true,
@@ -421,6 +457,10 @@
       {
         "id": "48746777116840",
         "label": "10x20 / blue",
+        "optionValues": [
+          "10x20",
+          "blue"
+        ],
         "price": 229,
         "compareAt": 369,
         "available": true,
@@ -429,6 +469,10 @@
       {
         "id": "48746777149608",
         "label": "10x20 / white",
+        "optionValues": [
+          "10x20",
+          "white"
+        ],
         "price": 209,
         "compareAt": 369,
         "available": true,
@@ -462,6 +506,9 @@
       {
         "id": "52390166560936",
         "label": "Square Steel Frame x1",
+        "optionValues": [
+          "Square Steel Frame x1"
+        ],
         "price": 100,
         "compareAt": null,
         "available": false,
@@ -470,6 +517,9 @@
       {
         "id": "52390166593704",
         "label": "Hexagonal Aluminum Frame x1",
+        "optionValues": [
+          "Hexagonal Aluminum Frame x1"
+        ],
         "price": 200,
         "compareAt": null,
         "available": true,
@@ -505,6 +555,7 @@
       {
         "id": "55257126142120",
         "label": "Default",
+        "optionValues": [],
         "price": 130,
         "compareAt": null,
         "available": false,
@@ -534,6 +585,9 @@
       {
         "id": "55239105544360",
         "label": "5x5",
+        "optionValues": [
+          "5x5"
+        ],
         "price": 300,
         "compareAt": null,
         "available": true,
@@ -542,6 +596,9 @@
       {
         "id": "55239105577128",
         "label": "10x10",
+        "optionValues": [
+          "10x10"
+        ],
         "price": 450,
         "compareAt": null,
         "available": true,
@@ -550,6 +607,9 @@
       {
         "id": "55239105609896",
         "label": "10x15",
+        "optionValues": [
+          "10x15"
+        ],
         "price": 600,
         "compareAt": null,
         "available": true,
@@ -558,6 +618,9 @@
       {
         "id": "55239105642664",
         "label": "10x20",
+        "optionValues": [
+          "10x20"
+        ],
         "price": 700,
         "compareAt": null,
         "available": true,
@@ -593,6 +656,9 @@
       {
         "id": "42535501037736",
         "label": "White",
+        "optionValues": [
+          "White"
+        ],
         "price": 559,
         "compareAt": 789.99,
         "available": true,
@@ -634,6 +700,9 @@
       {
         "id": "33111840718980",
         "label": "White+Blue",
+        "optionValues": [
+          "White+Blue"
+        ],
         "price": 459,
         "compareAt": 699.99,
         "available": true,
@@ -642,6 +711,9 @@
       {
         "id": "33111774986372",
         "label": "White",
+        "optionValues": [
+          "White"
+        ],
         "price": 439,
         "compareAt": 689.99,
         "available": false,
@@ -674,6 +746,7 @@
       {
         "id": "50503600996520",
         "label": "Default",
+        "optionValues": [],
         "price": 350,
         "compareAt": null,
         "available": false,
@@ -710,6 +783,9 @@
       {
         "id": "33110515810436",
         "label": "White+Blue",
+        "optionValues": [
+          "White+Blue"
+        ],
         "price": 599,
         "compareAt": 799.99,
         "available": true,
@@ -742,6 +818,7 @@
       {
         "id": "53536189055144",
         "label": "Default",
+        "optionValues": [],
         "price": 350,
         "compareAt": null,
         "available": false,
@@ -777,6 +854,9 @@
       {
         "id": "50715752759464",
         "label": "20x20-PVC w/FR",
+        "optionValues": [
+          "20x20-PVC w/FR"
+        ],
         "price": 669,
         "compareAt": null,
         "available": true,
@@ -785,6 +865,9 @@
       {
         "id": "50715768717480",
         "label": "20x20-PE",
+        "optionValues": [
+          "20x20-PE"
+        ],
         "price": 429,
         "compareAt": null,
         "available": true,
@@ -830,6 +913,7 @@
       {
         "id": "29410256322620",
         "label": "Default",
+        "optionValues": [],
         "price": 989.99,
         "compareAt": 1159.99,
         "available": false,
@@ -870,6 +954,9 @@
       {
         "id": "50810227884200",
         "label": "40x20 Roof only - White",
+        "optionValues": [
+          "40x20 Roof only - White"
+        ],
         "price": 350,
         "compareAt": null,
         "available": false,
@@ -878,6 +965,9 @@
       {
         "id": "52278600335528",
         "label": "20x20-PE box1 (including Roof) - White",
+        "optionValues": [
+          "20x20-PE box1 (including Roof) - White"
+        ],
         "price": 300,
         "compareAt": null,
         "available": true,
@@ -886,6 +976,9 @@
       {
         "id": "52963022471336",
         "label": "16x26-wh box1 (including Roof) - White",
+        "optionValues": [
+          "16x26-wh box1 (including Roof) - White"
+        ],
         "price": 300,
         "compareAt": null,
         "available": false,
@@ -894,6 +987,9 @@
       {
         "id": "50878812389544",
         "label": "16x26-bl box1 (including Roof) - Blue & White",
+        "optionValues": [
+          "16x26-bl box1 (including Roof) - Blue & White"
+        ],
         "price": 300,
         "compareAt": null,
         "available": true,
@@ -902,6 +998,9 @@
       {
         "id": "51877129584808",
         "label": "16x32-wh box1 (including Roof) - White",
+        "optionValues": [
+          "16x32-wh box1 (including Roof) - White"
+        ],
         "price": 350,
         "compareAt": null,
         "available": true,
@@ -910,6 +1009,9 @@
       {
         "id": "52963022504104",
         "label": "16x32-bl box1 (including Roof) - Blue & White",
+        "optionValues": [
+          "16x32-bl box1 (including Roof) - Blue & White"
+        ],
         "price": 350,
         "compareAt": null,
         "available": true,
@@ -918,6 +1020,9 @@
       {
         "id": "50810227916968",
         "label": "20x20-PVC Roof box1 (including Roof) - White",
+        "optionValues": [
+          "20x20-PVC Roof box1 (including Roof) - White"
+        ],
         "price": 350,
         "compareAt": null,
         "available": false,
@@ -945,6 +1050,7 @@
       {
         "id": "49148844638376",
         "label": "Default",
+        "optionValues": [],
         "price": 42,
         "compareAt": null,
         "available": false,
@@ -987,6 +1093,10 @@
       {
         "id": "29410401386556",
         "label": "White / 10x10",
+        "optionValues": [
+          "White",
+          "10x10"
+        ],
         "price": 139.99,
         "compareAt": null,
         "available": true,
@@ -995,6 +1105,10 @@
       {
         "id": "29410401484860",
         "label": "Blue / 10x10",
+        "optionValues": [
+          "Blue",
+          "10x10"
+        ],
         "price": 139.99,
         "compareAt": null,
         "available": false,
@@ -1003,6 +1117,10 @@
       {
         "id": "29410401583164",
         "label": "Black / 10x10",
+        "optionValues": [
+          "Black",
+          "10x10"
+        ],
         "price": 139.99,
         "compareAt": null,
         "available": true,
@@ -1011,6 +1129,10 @@
       {
         "id": "46591027609768",
         "label": "Green / 10x10",
+        "optionValues": [
+          "Green",
+          "10x10"
+        ],
         "price": 139.99,
         "compareAt": null,
         "available": false,
@@ -1019,6 +1141,10 @@
       {
         "id": "46591032787112",
         "label": "Red / 10x10",
+        "optionValues": [
+          "Red",
+          "10x10"
+        ],
         "price": 139.99,
         "compareAt": null,
         "available": false,
@@ -1027,6 +1153,10 @@
       {
         "id": "46591042683048",
         "label": "Yellow / 10x10",
+        "optionValues": [
+          "Yellow",
+          "10x10"
+        ],
         "price": 139.99,
         "compareAt": null,
         "available": false,
@@ -1035,6 +1165,10 @@
       {
         "id": "46591051694248",
         "label": "Beige / 10x10",
+        "optionValues": [
+          "Beige",
+          "10x10"
+        ],
         "price": 139.99,
         "compareAt": null,
         "available": false,
@@ -1043,6 +1177,10 @@
       {
         "id": "46591057887400",
         "label": "Pink / 10x10",
+        "optionValues": [
+          "Pink",
+          "10x10"
+        ],
         "price": 139.99,
         "compareAt": null,
         "available": false,
@@ -1051,6 +1189,10 @@
       {
         "id": "46591075713192",
         "label": "Purple / 10x10",
+        "optionValues": [
+          "Purple",
+          "10x10"
+        ],
         "price": 139.99,
         "compareAt": null,
         "available": false,
@@ -1059,6 +1201,10 @@
       {
         "id": "46591082692776",
         "label": "Brown / 10x10",
+        "optionValues": [
+          "Brown",
+          "10x10"
+        ],
         "price": 139.99,
         "compareAt": null,
         "available": true,
@@ -1067,6 +1213,10 @@
       {
         "id": "46591089442984",
         "label": "Teal / 10x10",
+        "optionValues": [
+          "Teal",
+          "10x10"
+        ],
         "price": 139.99,
         "compareAt": null,
         "available": false,
@@ -1114,6 +1264,9 @@
       {
         "id": "29470160486460",
         "label": "Green",
+        "optionValues": [
+          "Green"
+        ],
         "price": 58,
         "compareAt": null,
         "available": false,
@@ -1122,6 +1275,9 @@
       {
         "id": "29470160420924",
         "label": "Black",
+        "optionValues": [
+          "Black"
+        ],
         "price": 58,
         "compareAt": null,
         "available": true,
@@ -1130,6 +1286,9 @@
       {
         "id": "29470160388156",
         "label": "White",
+        "optionValues": [
+          "White"
+        ],
         "price": 58,
         "compareAt": null,
         "available": true,
@@ -1138,6 +1297,9 @@
       {
         "id": "29470160650300",
         "label": "Red",
+        "optionValues": [
+          "Red"
+        ],
         "price": 58,
         "compareAt": null,
         "available": false,
@@ -1146,6 +1308,9 @@
       {
         "id": "29470160519228",
         "label": "Blue",
+        "optionValues": [
+          "Blue"
+        ],
         "price": 58,
         "compareAt": null,
         "available": false,
@@ -1154,6 +1319,9 @@
       {
         "id": "29470160617532",
         "label": "Yellow",
+        "optionValues": [
+          "Yellow"
+        ],
         "price": 58,
         "compareAt": null,
         "available": false,
@@ -1162,6 +1330,9 @@
       {
         "id": "29470160584764",
         "label": "Teal",
+        "optionValues": [
+          "Teal"
+        ],
         "price": 58,
         "compareAt": null,
         "available": false,
@@ -1170,6 +1341,9 @@
       {
         "id": "29470160551996",
         "label": "Purple",
+        "optionValues": [
+          "Purple"
+        ],
         "price": 58,
         "compareAt": null,
         "available": false,
@@ -1178,6 +1352,9 @@
       {
         "id": "29470160453692",
         "label": "Pink",
+        "optionValues": [
+          "Pink"
+        ],
         "price": 58,
         "compareAt": null,
         "available": false,
@@ -1186,6 +1363,9 @@
       {
         "id": "33430447292548",
         "label": "Brown",
+        "optionValues": [
+          "Brown"
+        ],
         "price": 58,
         "compareAt": null,
         "available": true,
@@ -1233,6 +1413,10 @@
       {
         "id": "29481040019516",
         "label": "10x15 / Black",
+        "optionValues": [
+          "10x15",
+          "Black"
+        ],
         "price": 139.99,
         "compareAt": 188,
         "available": true,
@@ -1241,6 +1425,10 @@
       {
         "id": "29481039790140",
         "label": "10x15 / Blue",
+        "optionValues": [
+          "10x15",
+          "Blue"
+        ],
         "price": 139.99,
         "compareAt": 188,
         "available": true,
@@ -1249,6 +1437,10 @@
       {
         "id": "29481039921212",
         "label": "10x15 / White",
+        "optionValues": [
+          "10x15",
+          "White"
+        ],
         "price": 139.99,
         "compareAt": 188,
         "available": true,
@@ -1257,6 +1449,10 @@
       {
         "id": "46604353634472",
         "label": "10x15 / Green",
+        "optionValues": [
+          "10x15",
+          "Green"
+        ],
         "price": 169.99,
         "compareAt": 188,
         "available": false,
@@ -1265,6 +1461,10 @@
       {
         "id": "46604357894312",
         "label": "10x15 / Yellow",
+        "optionValues": [
+          "10x15",
+          "Yellow"
+        ],
         "price": 169.99,
         "compareAt": 188,
         "available": true,
@@ -1273,6 +1473,10 @@
       {
         "id": "46604364447912",
         "label": "10x15 / Red",
+        "optionValues": [
+          "10x15",
+          "Red"
+        ],
         "price": 169.99,
         "compareAt": 188,
         "available": false,
@@ -1281,6 +1485,10 @@
       {
         "id": "46604368183464",
         "label": "10x15 / Teal",
+        "optionValues": [
+          "10x15",
+          "Teal"
+        ],
         "price": 169.99,
         "compareAt": 188,
         "available": true,
@@ -1289,6 +1497,10 @@
       {
         "id": "46604371853480",
         "label": "10x15 / Brown",
+        "optionValues": [
+          "10x15",
+          "Brown"
+        ],
         "price": 169.99,
         "compareAt": 188,
         "available": false,
@@ -1297,6 +1509,10 @@
       {
         "id": "46604375654568",
         "label": "10x15 / Purple",
+        "optionValues": [
+          "10x15",
+          "Purple"
+        ],
         "price": 169.99,
         "compareAt": 188,
         "available": false,
@@ -1305,6 +1521,10 @@
       {
         "id": "46604383158440",
         "label": "10x15 / Pink",
+        "optionValues": [
+          "10x15",
+          "Pink"
+        ],
         "price": 169.99,
         "compareAt": 188,
         "available": true,
@@ -1353,6 +1573,10 @@
       {
         "id": "29480288747580",
         "label": "10x15 / Black",
+        "optionValues": [
+          "10x15",
+          "Black"
+        ],
         "price": 139.99,
         "compareAt": 188,
         "available": false,
@@ -1361,6 +1585,10 @@
       {
         "id": "29480288616508",
         "label": "10x15 / White",
+        "optionValues": [
+          "10x15",
+          "White"
+        ],
         "price": 139.99,
         "compareAt": 188,
         "available": false,
@@ -1369,6 +1597,10 @@
       {
         "id": "29480288583740",
         "label": "10x15 / Blue",
+        "optionValues": [
+          "10x15",
+          "Blue"
+        ],
         "price": 139.99,
         "compareAt": 188,
         "available": false,
@@ -1377,6 +1609,10 @@
       {
         "id": "46604459114664",
         "label": "10x15 / Red",
+        "optionValues": [
+          "10x15",
+          "Red"
+        ],
         "price": 139.99,
         "compareAt": 188,
         "available": false,
@@ -1385,6 +1621,10 @@
       {
         "id": "46604548178088",
         "label": "10x15 / Green",
+        "optionValues": [
+          "10x15",
+          "Green"
+        ],
         "price": 139.99,
         "compareAt": 188,
         "available": false,
@@ -1393,6 +1633,10 @@
       {
         "id": "46604555616424",
         "label": "10x15 / Yellow",
+        "optionValues": [
+          "10x15",
+          "Yellow"
+        ],
         "price": 139.99,
         "compareAt": 188,
         "available": false,
@@ -1401,6 +1645,10 @@
       {
         "id": "46604560695464",
         "label": "10x15 / Brown",
+        "optionValues": [
+          "10x15",
+          "Brown"
+        ],
         "price": 139.99,
         "compareAt": 188,
         "available": false,
@@ -1409,6 +1657,10 @@
       {
         "id": "46604597559464",
         "label": "10x15 / Pink",
+        "optionValues": [
+          "10x15",
+          "Pink"
+        ],
         "price": 139.99,
         "compareAt": 188,
         "available": false,
@@ -1417,6 +1669,10 @@
       {
         "id": "46604639240360",
         "label": "10x15 / Purple",
+        "optionValues": [
+          "10x15",
+          "Purple"
+        ],
         "price": 139.99,
         "compareAt": 188,
         "available": false,
@@ -1425,6 +1681,10 @@
       {
         "id": "46604649529512",
         "label": "10x15 / Teal",
+        "optionValues": [
+          "10x15",
+          "Teal"
+        ],
         "price": 139.99,
         "compareAt": 188,
         "available": false,
@@ -1471,6 +1731,9 @@
       {
         "id": "29470673272892",
         "label": "Yellow",
+        "optionValues": [
+          "Yellow"
+        ],
         "price": 75,
         "compareAt": null,
         "available": false,
@@ -1479,6 +1742,9 @@
       {
         "id": "29470673174588",
         "label": "Pink",
+        "optionValues": [
+          "Pink"
+        ],
         "price": 75,
         "compareAt": null,
         "available": false,
@@ -1487,6 +1753,9 @@
       {
         "id": "29470673338428",
         "label": "Teal",
+        "optionValues": [
+          "Teal"
+        ],
         "price": 75,
         "compareAt": null,
         "available": false,
@@ -1495,6 +1764,9 @@
       {
         "id": "29470673305660",
         "label": "Purple",
+        "optionValues": [
+          "Purple"
+        ],
         "price": 75,
         "compareAt": null,
         "available": false,
@@ -1503,6 +1775,9 @@
       {
         "id": "29470673371196",
         "label": "Red",
+        "optionValues": [
+          "Red"
+        ],
         "price": 75,
         "compareAt": null,
         "available": false,
@@ -1511,6 +1786,9 @@
       {
         "id": "29470673240124",
         "label": "Green",
+        "optionValues": [
+          "Green"
+        ],
         "price": 75,
         "compareAt": null,
         "available": false,
@@ -1519,6 +1797,9 @@
       {
         "id": "29470673403964",
         "label": "Blue",
+        "optionValues": [
+          "Blue"
+        ],
         "price": 75,
         "compareAt": null,
         "available": false,
@@ -1527,6 +1808,9 @@
       {
         "id": "29470673141820",
         "label": "Black",
+        "optionValues": [
+          "Black"
+        ],
         "price": 75,
         "compareAt": null,
         "available": false,
@@ -1535,6 +1819,9 @@
       {
         "id": "33429372960900",
         "label": "Brown",
+        "optionValues": [
+          "Brown"
+        ],
         "price": 75,
         "compareAt": null,
         "available": false,
@@ -1543,6 +1830,9 @@
       {
         "id": "29470673207356",
         "label": "White",
+        "optionValues": [
+          "White"
+        ],
         "price": 75,
         "compareAt": null,
         "available": false,
@@ -1576,6 +1866,7 @@
       {
         "id": "49592491868328",
         "label": "Default",
+        "optionValues": [],
         "price": 155,
         "compareAt": null,
         "available": false,
@@ -1617,6 +1908,10 @@
       {
         "id": "29410051850300",
         "label": "10x20 / Blue",
+        "optionValues": [
+          "10x20",
+          "Blue"
+        ],
         "price": 209.99,
         "compareAt": 222.99,
         "available": false,
@@ -1625,6 +1920,10 @@
       {
         "id": "31266791489668",
         "label": "10x20 / Black",
+        "optionValues": [
+          "10x20",
+          "Black"
+        ],
         "price": 209.99,
         "compareAt": 222.99,
         "available": false,
@@ -1633,6 +1932,10 @@
       {
         "id": "29410051981372",
         "label": "10x20 / White",
+        "optionValues": [
+          "10x20",
+          "White"
+        ],
         "price": 209.99,
         "compareAt": 222.99,
         "available": false,
@@ -1641,6 +1944,10 @@
       {
         "id": "46589767516328",
         "label": "10x20 / Yellow",
+        "optionValues": [
+          "10x20",
+          "Yellow"
+        ],
         "price": 209.99,
         "compareAt": 222.99,
         "available": false,
@@ -1649,6 +1956,10 @@
       {
         "id": "46589775118504",
         "label": "10x20 / Green",
+        "optionValues": [
+          "10x20",
+          "Green"
+        ],
         "price": 209.99,
         "compareAt": 222.99,
         "available": false,
@@ -1657,6 +1968,10 @@
       {
         "id": "46589808509096",
         "label": "10x20 / Red",
+        "optionValues": [
+          "10x20",
+          "Red"
+        ],
         "price": 209.99,
         "compareAt": 222.99,
         "available": false,
@@ -1665,6 +1980,10 @@
       {
         "id": "46589817389224",
         "label": "10x20 / Purple",
+        "optionValues": [
+          "10x20",
+          "Purple"
+        ],
         "price": 209.99,
         "compareAt": 222.99,
         "available": false,
@@ -1673,6 +1992,10 @@
       {
         "id": "46589822206120",
         "label": "10x20 / Teal",
+        "optionValues": [
+          "10x20",
+          "Teal"
+        ],
         "price": 209.99,
         "compareAt": 222.99,
         "available": false,
@@ -1681,6 +2004,10 @@
       {
         "id": "46589828432040",
         "label": "10x20 / Pink",
+        "optionValues": [
+          "10x20",
+          "Pink"
+        ],
         "price": 209.99,
         "compareAt": 222.99,
         "available": false,
@@ -1689,6 +2016,10 @@
       {
         "id": "46589846945960",
         "label": "10x20 / Brown",
+        "optionValues": [
+          "10x20",
+          "Brown"
+        ],
         "price": 209.99,
         "compareAt": 222.99,
         "available": false,
@@ -1738,6 +2069,10 @@
       {
         "id": "29481376022588",
         "label": "10x20 / Blue",
+        "optionValues": [
+          "10x20",
+          "Blue"
+        ],
         "price": 209.99,
         "compareAt": 222.99,
         "available": false,
@@ -1746,6 +2081,10 @@
       {
         "id": "31266771828868",
         "label": "10x20 / Black",
+        "optionValues": [
+          "10x20",
+          "Black"
+        ],
         "price": 209.99,
         "compareAt": 222.99,
         "available": false,
@@ -1754,6 +2093,10 @@
       {
         "id": "29481376186428",
         "label": "10x20 / White",
+        "optionValues": [
+          "10x20",
+          "White"
+        ],
         "price": 209.99,
         "compareAt": 222.99,
         "available": false,
@@ -1762,6 +2105,10 @@
       {
         "id": "46589972644008",
         "label": "10x20 / Yellow",
+        "optionValues": [
+          "10x20",
+          "Yellow"
+        ],
         "price": 209.99,
         "compareAt": 222.99,
         "available": false,
@@ -1770,6 +2117,10 @@
       {
         "id": "46589977460904",
         "label": "10x20 / Green",
+        "optionValues": [
+          "10x20",
+          "Green"
+        ],
         "price": 209.99,
         "compareAt": 222.99,
         "available": false,
@@ -1778,6 +2129,10 @@
       {
         "id": "46589982212264",
         "label": "10x20 / Red",
+        "optionValues": [
+          "10x20",
+          "Red"
+        ],
         "price": 209.99,
         "compareAt": 222.99,
         "available": false,
@@ -1786,6 +2141,10 @@
       {
         "id": "46589987618984",
         "label": "10x20 / Teal",
+        "optionValues": [
+          "10x20",
+          "Teal"
+        ],
         "price": 209.99,
         "compareAt": 222.99,
         "available": false,
@@ -1794,6 +2153,10 @@
       {
         "id": "46589991813288",
         "label": "10x20 / Pink",
+        "optionValues": [
+          "10x20",
+          "Pink"
+        ],
         "price": 209.99,
         "compareAt": 222.99,
         "available": false,
@@ -1802,6 +2165,10 @@
       {
         "id": "46589996040360",
         "label": "10x20 / Purple",
+        "optionValues": [
+          "10x20",
+          "Purple"
+        ],
         "price": 209.99,
         "compareAt": 222.99,
         "available": false,
@@ -1810,6 +2177,10 @@
       {
         "id": "46590000890024",
         "label": "10x20 / Brown",
+        "optionValues": [
+          "10x20",
+          "Brown"
+        ],
         "price": 209.99,
         "compareAt": 222.99,
         "available": false,
@@ -1857,6 +2228,10 @@
       {
         "id": "29410092941372",
         "label": "10x20 / Red",
+        "optionValues": [
+          "10x20",
+          "Red"
+        ],
         "price": 89,
         "compareAt": null,
         "available": true,
@@ -1865,6 +2240,10 @@
       {
         "id": "29410093105212",
         "label": "10x20 / Pink",
+        "optionValues": [
+          "10x20",
+          "Pink"
+        ],
         "price": 89,
         "compareAt": null,
         "available": false,
@@ -1873,6 +2252,10 @@
       {
         "id": "29410093563964",
         "label": "10x20 / Yellow",
+        "optionValues": [
+          "10x20",
+          "Yellow"
+        ],
         "price": 89,
         "compareAt": null,
         "available": false,
@@ -1881,6 +2264,10 @@
       {
         "id": "29410092744764",
         "label": "10x20 / Green",
+        "optionValues": [
+          "10x20",
+          "Green"
+        ],
         "price": 89,
         "compareAt": null,
         "available": false,
@@ -1889,6 +2276,10 @@
       {
         "id": "29410093301820",
         "label": "10x20 / Purple",
+        "optionValues": [
+          "10x20",
+          "Purple"
+        ],
         "price": 89,
         "compareAt": null,
         "available": false,
@@ -1897,6 +2288,10 @@
       {
         "id": "29410093695036",
         "label": "10x20 / Teal",
+        "optionValues": [
+          "10x20",
+          "Teal"
+        ],
         "price": 89,
         "compareAt": null,
         "available": false,
@@ -1905,6 +2300,10 @@
       {
         "id": "29410092875836",
         "label": "10x20 / Blue",
+        "optionValues": [
+          "10x20",
+          "Blue"
+        ],
         "price": 89,
         "compareAt": null,
         "available": true,
@@ -1913,6 +2312,10 @@
       {
         "id": "33429851373700",
         "label": "10x20 / Black",
+        "optionValues": [
+          "10x20",
+          "Black"
+        ],
         "price": 89,
         "compareAt": null,
         "available": true,
@@ -1921,6 +2324,10 @@
       {
         "id": "33429867724932",
         "label": "10x20 / Brown",
+        "optionValues": [
+          "10x20",
+          "Brown"
+        ],
         "price": 89,
         "compareAt": null,
         "available": false,
@@ -1929,6 +2336,10 @@
       {
         "id": "29410092777532",
         "label": "10x20 / White",
+        "optionValues": [
+          "10x20",
+          "White"
+        ],
         "price": 89,
         "compareAt": null,
         "available": true,
@@ -1976,6 +2387,10 @@
       {
         "id": "29410313175100",
         "label": "Blue / 5x5",
+        "optionValues": [
+          "Blue",
+          "5x5"
+        ],
         "price": 93.99,
         "compareAt": null,
         "available": false,
@@ -1984,6 +2399,10 @@
       {
         "id": "29410313338940",
         "label": "White / 5x5",
+        "optionValues": [
+          "White",
+          "5x5"
+        ],
         "price": 130,
         "compareAt": null,
         "available": false,
@@ -1992,6 +2411,10 @@
       {
         "id": "29410313404476",
         "label": "Black / 5x5",
+        "optionValues": [
+          "Black",
+          "5x5"
+        ],
         "price": 143,
         "compareAt": null,
         "available": false,
@@ -2000,6 +2423,10 @@
       {
         "id": "46590214439080",
         "label": "Yellow / 5x5",
+        "optionValues": [
+          "Yellow",
+          "5x5"
+        ],
         "price": 93.99,
         "compareAt": null,
         "available": false,
@@ -2008,6 +2435,10 @@
       {
         "id": "46590218535080",
         "label": "Red / 5x5",
+        "optionValues": [
+          "Red",
+          "5x5"
+        ],
         "price": 93.99,
         "compareAt": null,
         "available": false,
@@ -2016,6 +2447,10 @@
       {
         "id": "46590299177128",
         "label": "Green / 5x5",
+        "optionValues": [
+          "Green",
+          "5x5"
+        ],
         "price": 93.99,
         "compareAt": null,
         "available": false,
@@ -2024,6 +2459,10 @@
       {
         "id": "46590305403048",
         "label": "Purple / 5x5",
+        "optionValues": [
+          "Purple",
+          "5x5"
+        ],
         "price": 93.99,
         "compareAt": null,
         "available": false,
@@ -2032,6 +2471,10 @@
       {
         "id": "46590310482088",
         "label": "Pink / 5x5",
+        "optionValues": [
+          "Pink",
+          "5x5"
+        ],
         "price": 93.99,
         "compareAt": null,
         "available": false,
@@ -2040,6 +2483,10 @@
       {
         "id": "46590315987112",
         "label": "Teal / 5x5",
+        "optionValues": [
+          "Teal",
+          "5x5"
+        ],
         "price": 93.99,
         "compareAt": null,
         "available": false,
@@ -2048,6 +2495,10 @@
       {
         "id": "46590335320232",
         "label": "Brown / 5x5",
+        "optionValues": [
+          "Brown",
+          "5x5"
+        ],
         "price": 93.99,
         "compareAt": null,
         "available": false,
@@ -2098,6 +2549,10 @@
       {
         "id": "29410213888060",
         "label": "Blue / 5x5",
+        "optionValues": [
+          "Blue",
+          "5x5"
+        ],
         "price": 79.99,
         "compareAt": null,
         "available": true,
@@ -2106,6 +2561,10 @@
       {
         "id": "29410213724220",
         "label": "White / 5x5",
+        "optionValues": [
+          "White",
+          "5x5"
+        ],
         "price": 79.99,
         "compareAt": null,
         "available": true,
@@ -2114,6 +2573,10 @@
       {
         "id": "29410214019132",
         "label": "Black / 5x5",
+        "optionValues": [
+          "Black",
+          "5x5"
+        ],
         "price": 79.99,
         "compareAt": null,
         "available": true,
@@ -2122,6 +2585,10 @@
       {
         "id": "46590636392616",
         "label": "Yellow / 5x5",
+        "optionValues": [
+          "Yellow",
+          "5x5"
+        ],
         "price": 110,
         "compareAt": null,
         "available": false,
@@ -2130,6 +2597,10 @@
       {
         "id": "46590402068648",
         "label": "Red / 5x5",
+        "optionValues": [
+          "Red",
+          "5x5"
+        ],
         "price": 79.99,
         "compareAt": null,
         "available": true,
@@ -2138,6 +2609,10 @@
       {
         "id": "46590395383976",
         "label": "Green / 5x5",
+        "optionValues": [
+          "Green",
+          "5x5"
+        ],
         "price": 79.99,
         "compareAt": null,
         "available": true,
@@ -2146,6 +2621,10 @@
       {
         "id": "46590671257768",
         "label": "Purple / 5x5",
+        "optionValues": [
+          "Purple",
+          "5x5"
+        ],
         "price": 79.99,
         "compareAt": null,
         "available": true,
@@ -2154,6 +2633,10 @@
       {
         "id": "46590643929256",
         "label": "Pink / 5x5",
+        "optionValues": [
+          "Pink",
+          "5x5"
+        ],
         "price": 110,
         "compareAt": null,
         "available": false,
@@ -2162,6 +2645,10 @@
       {
         "id": "46590652154024",
         "label": "Teal / 5x5",
+        "optionValues": [
+          "Teal",
+          "5x5"
+        ],
         "price": 110,
         "compareAt": null,
         "available": false,
@@ -2170,6 +2657,10 @@
       {
         "id": "46590679384232",
         "label": "Brown / 5x5",
+        "optionValues": [
+          "Brown",
+          "5x5"
+        ],
         "price": 79.99,
         "compareAt": null,
         "available": true,
@@ -2217,6 +2708,9 @@
       {
         "id": "29470294310972",
         "label": "Blue",
+        "optionValues": [
+          "Blue"
+        ],
         "price": 50,
         "compareAt": null,
         "available": false,
@@ -2225,6 +2719,9 @@
       {
         "id": "29470294278204",
         "label": "Yellow",
+        "optionValues": [
+          "Yellow"
+        ],
         "price": 50,
         "compareAt": null,
         "available": false,
@@ -2233,6 +2730,9 @@
       {
         "id": "29470294343740",
         "label": "Pink",
+        "optionValues": [
+          "Pink"
+        ],
         "price": 50,
         "compareAt": null,
         "available": false,
@@ -2241,6 +2741,9 @@
       {
         "id": "29470294114364",
         "label": "Black",
+        "optionValues": [
+          "Black"
+        ],
         "price": 50,
         "compareAt": null,
         "available": false,
@@ -2249,6 +2752,9 @@
       {
         "id": "29470294081596",
         "label": "White",
+        "optionValues": [
+          "White"
+        ],
         "price": 50,
         "compareAt": null,
         "available": false,
@@ -2257,6 +2763,9 @@
       {
         "id": "29470294212668",
         "label": "Green",
+        "optionValues": [
+          "Green"
+        ],
         "price": 50,
         "compareAt": null,
         "available": false,
@@ -2265,6 +2774,9 @@
       {
         "id": "29470294179900",
         "label": "Red",
+        "optionValues": [
+          "Red"
+        ],
         "price": 50,
         "compareAt": null,
         "available": false,
@@ -2273,6 +2785,9 @@
       {
         "id": "29470294147132",
         "label": "Purple",
+        "optionValues": [
+          "Purple"
+        ],
         "price": 50,
         "compareAt": null,
         "available": false,
@@ -2281,6 +2796,9 @@
       {
         "id": "29470294245436",
         "label": "Teal",
+        "optionValues": [
+          "Teal"
+        ],
         "price": 50,
         "compareAt": null,
         "available": false,
@@ -2289,6 +2807,9 @@
       {
         "id": "33428938064004",
         "label": "Brown",
+        "optionValues": [
+          "Brown"
+        ],
         "price": 50,
         "compareAt": null,
         "available": false,
@@ -2326,6 +2847,7 @@
       {
         "id": "46492070969512",
         "label": "Default",
+        "optionValues": [],
         "price": 49.99,
         "compareAt": null,
         "available": false,
@@ -2363,6 +2885,7 @@
       {
         "id": "29410340569148",
         "label": "Default",
+        "optionValues": [],
         "price": 49.99,
         "compareAt": null,
         "available": false,
@@ -2395,6 +2918,7 @@
       {
         "id": "48851508494504",
         "label": "Default",
+        "optionValues": [],
         "price": 26,
         "compareAt": null,
         "available": false,
@@ -2429,6 +2953,7 @@
       {
         "id": "29410224439356",
         "label": "Default",
+        "optionValues": [],
         "price": 59.99,
         "compareAt": null,
         "available": true,
@@ -2473,6 +2998,10 @@
       {
         "id": "43567244837032",
         "label": "5' x 5' frame / Black",
+        "optionValues": [
+          "5' x 5' frame",
+          "Black"
+        ],
         "price": 65,
         "compareAt": null,
         "available": true,
@@ -2481,6 +3010,10 @@
       {
         "id": "43567244869800",
         "label": "5' x 5' frame / White",
+        "optionValues": [
+          "5' x 5' frame",
+          "White"
+        ],
         "price": 85,
         "compareAt": null,
         "available": false,
@@ -2489,6 +3022,10 @@
       {
         "id": "43567244935336",
         "label": "10' x 10' frame / Black",
+        "optionValues": [
+          "10' x 10' frame",
+          "Black"
+        ],
         "price": 120,
         "compareAt": null,
         "available": true,
@@ -2497,6 +3034,10 @@
       {
         "id": "43567244968104",
         "label": "10' x 10' frame / White",
+        "optionValues": [
+          "10' x 10' frame",
+          "White"
+        ],
         "price": 120,
         "compareAt": null,
         "available": true,
@@ -2505,6 +3046,10 @@
       {
         "id": "43567245000872",
         "label": "10' x 15' frame / Black",
+        "optionValues": [
+          "10' x 15' frame",
+          "Black"
+        ],
         "price": 150,
         "compareAt": null,
         "available": true,
@@ -2513,6 +3058,10 @@
       {
         "id": "43567245033640",
         "label": "10' x 15' frame / White",
+        "optionValues": [
+          "10' x 15' frame",
+          "White"
+        ],
         "price": 150,
         "compareAt": null,
         "available": true,
@@ -2521,6 +3070,10 @@
       {
         "id": "43567245066408",
         "label": "10' x 20' frame / Black",
+        "optionValues": [
+          "10' x 20' frame",
+          "Black"
+        ],
         "price": 185,
         "compareAt": null,
         "available": false,
@@ -2529,6 +3082,10 @@
       {
         "id": "43567245099176",
         "label": "10' x 20' frame / White",
+        "optionValues": [
+          "10' x 20' frame",
+          "White"
+        ],
         "price": 185,
         "compareAt": null,
         "available": false,
@@ -2578,6 +3135,9 @@
       {
         "id": "55471381119144",
         "label": "Blue",
+        "optionValues": [
+          "Blue"
+        ],
         "price": 169,
         "compareAt": null,
         "available": true,
@@ -2586,6 +3146,9 @@
       {
         "id": "55471381151912",
         "label": "White",
+        "optionValues": [
+          "White"
+        ],
         "price": 169,
         "compareAt": null,
         "available": false,
@@ -2594,6 +3157,9 @@
       {
         "id": "55471381184680",
         "label": "Black",
+        "optionValues": [
+          "Black"
+        ],
         "price": 169,
         "compareAt": null,
         "available": true,
@@ -2602,6 +3168,9 @@
       {
         "id": "55471381217448",
         "label": "Purple",
+        "optionValues": [
+          "Purple"
+        ],
         "price": 199,
         "compareAt": null,
         "available": false,
@@ -2610,6 +3179,9 @@
       {
         "id": "55471381250216",
         "label": "Red",
+        "optionValues": [
+          "Red"
+        ],
         "price": 199,
         "compareAt": null,
         "available": true,
@@ -2618,6 +3190,9 @@
       {
         "id": "55471399862440",
         "label": "Green",
+        "optionValues": [
+          "Green"
+        ],
         "price": 199,
         "compareAt": null,
         "available": false,
@@ -2657,6 +3232,9 @@
       {
         "id": "55471396913320",
         "label": "White",
+        "optionValues": [
+          "White"
+        ],
         "price": 79,
         "compareAt": null,
         "available": true,
@@ -2665,6 +3243,9 @@
       {
         "id": "55471396946088",
         "label": "Blue",
+        "optionValues": [
+          "Blue"
+        ],
         "price": 79,
         "compareAt": null,
         "available": true,
@@ -2673,6 +3254,9 @@
       {
         "id": "55471396978856",
         "label": "Black",
+        "optionValues": [
+          "Black"
+        ],
         "price": 79,
         "compareAt": null,
         "available": true,
@@ -2681,6 +3265,9 @@
       {
         "id": "55471397011624",
         "label": "Purple",
+        "optionValues": [
+          "Purple"
+        ],
         "price": 89,
         "compareAt": null,
         "available": true,
@@ -2689,6 +3276,9 @@
       {
         "id": "55471397044392",
         "label": "Red",
+        "optionValues": [
+          "Red"
+        ],
         "price": 89,
         "compareAt": null,
         "available": true,
@@ -2697,6 +3287,9 @@
       {
         "id": "55471397077160",
         "label": "Green",
+        "optionValues": [
+          "Green"
+        ],
         "price": 89,
         "compareAt": null,
         "available": true,

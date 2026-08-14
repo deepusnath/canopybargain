@@ -53,6 +53,7 @@ for (const p of products) {
   const variants = (p.variants ?? []).map((v) => ({
     id: String(v.id),
     label: [v.option1, v.option2, v.option3].filter((o) => o && o !== 'Default Title').join(' / ') || 'Default',
+    optionValues: [v.option1, v.option2, v.option3].filter((o) => o && o !== 'Default Title'),
     price: Number(v.price),
     compareAt: v.compare_at_price ? Number(v.compare_at_price) : null,
     available: v.available !== false,

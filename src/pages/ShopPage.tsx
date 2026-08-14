@@ -211,7 +211,44 @@ export function ProductPage() {
             </div>
           ) : (
             <>
-              {hasVariantChoices && (
+              {hasVariantChoices && product.options.length >= 2 ? (
+                // grouped selectors: one row per option axis (e.g. Size, Color)
+                product.options.map((optName, axis) => {
+                  const values = [...new Set(product.variants.map((v) => v.optionValues[axis]))]
+                  const current = variant?.optionValues[axis]
+                  const pick = (value: string) => {
+                    // keep other axes, swap this one; fall back to any variant with this value
+                    const want = variant?.optionValues.map((ov, i) => (i === axis ? value : ov)) ?? []
+                    const exact = product.variants.find((v) => v.optionValues.every((ov, i) => ov === want[i]))
+                    const fallback = product.variants.find((v) => v.optionValues[axis] === value)
+                    if (exact ?? fallback) selectVariant(exact ?? fallback!)
+                  }
+                  return (
+                    <div className="field" key={optName}>
+                      <span>{optName}: {current}</span>
+                      <div className="variant-grid">
+                        {values.map((value) => {
+                          const want = variant?.optionValues.map((ov, i) => (i === axis ? value : ov)) ?? []
+                          const match = product.variants.find((v) => v.optionValues.every((ov, i) => ov === want[i]))
+                          const anyAvailable = product.variants.some((v) => v.optionValues[axis] === value && v.available)
+                          const outOfStock = match ? !match.available : !anyAvailable
+                          return (
+                            <button
+                              key={value}
+                              className={`chip ${value === current ? 'chip-on' : ''} ${outOfStock ? 'chip-dim' : ''}`}
+                              onClick={() => pick(value)}
+                              disabled={outOfStock}
+                              title={outOfStock ? `${value} — out of stock` : value}
+                            >
+                              {value}
+                            </button>
+                          )
+                        })}
+                      </div>
+                    </div>
+                  )
+                })
+              ) : hasVariantChoices ? (
                 <div className="field">
                   <span>{product.options.join(' / ') || 'Options'}: {variant?.label}</span>
                   <div className="variant-grid">
@@ -229,7 +266,7 @@ export function ProductPage() {
                     ))}
                   </div>
                 </div>
-              )}
+              ) : null}
               <div className="buy-row">
                 <label className="qty-label">
                   Qty

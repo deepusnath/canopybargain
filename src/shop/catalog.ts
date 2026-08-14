@@ -12,6 +12,7 @@ export interface ArtSpec {
 export interface ProductVariant {
   id: string
   label: string
+  optionValues: string[]
   price: number
   compareAt: number | null
   available: boolean
