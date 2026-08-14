@@ -296,22 +296,30 @@ export function TentScene() {
     const structureKey = (d: Design) =>
       [d.tentSize, d.parts.backWall.enabled, d.parts.halfWallLeft.enabled, d.parts.halfWallRight.enabled].join('|')
 
+    // Structure changes (size, walls) rebuild synchronously — rAF callbacks can
+    // be throttled indefinitely when the browser isn't compositing frames, which
+    // left the old geometry on screen. Texture repaints stay coalesced, with a
+    // timeout fallback so they can't be starved the same way.
     let lastKey = ''
-    let pending = false
+    let scheduled = false
+    const flushTextures = () => {
+      if (!scheduled) return
+      scheduled = false
+      updateTextures(useStore.getState().design)
+    }
     const scheduleUpdate = () => {
-      if (pending) return
-      pending = true
-      requestAnimationFrame(() => {
-        pending = false
-        const design = useStore.getState().design
-        const key = structureKey(design)
-        if (key !== lastKey) {
-          lastKey = key
-          buildTent(design)
-        } else {
-          updateTextures(design)
-        }
-      })
+      const design = useStore.getState().design
+      const key = structureKey(design)
+      if (key !== lastKey) {
+        lastKey = key
+        buildTent(design)
+        return
+      }
+      if (!scheduled) {
+        scheduled = true
+        requestAnimationFrame(flushTextures)
+        setTimeout(flushTextures, 60)
+      }
     }
 
     lastKey = structureKey(useStore.getState().design)
