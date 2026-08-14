@@ -104,6 +104,34 @@ export function ShopPage() {
   )
 }
 
+/** Event-planning block for party tents: capacity estimates from the footprint. */
+function PartyPlanner({ size }: { size: string }) {
+  const m = size.match(/(\d+)\s*x\s*(\d+)/i)
+  if (!m) return null
+  const w = Number(m[1])
+  const d = Number(m[2])
+  const area = w * d
+  const round5 = (v: number) => Math.max(5, Math.floor(v / 5) * 5)
+  return (
+    <div className="party-planner">
+      <h2>Event planning guide</h2>
+      <table className="spec-table">
+        <tbody>
+          <tr><th>Footprint</th><td>{w} × {d} ft ({area} sq ft)</td></tr>
+          <tr><th>Seated dinner (round tables)</th><td>~{round5(area / 12)} guests</td></tr>
+          <tr><th>Seated rows (ceremony style)</th><td>~{round5(area / 8)} guests</td></tr>
+          <tr><th>Standing reception</th><td>~{round5(area / 6)} guests</td></tr>
+          <tr><th>Clearance needed</th><td>{w + 6} × {d + 6} ft (stakes & ropes)</td></tr>
+        </tbody>
+      </table>
+      <p className="muted">
+        Estimates only — subtract room for a buffet, bar, stage, or dance floor,
+        and check local permit rules for tents over 400 sq ft.
+      </p>
+    </div>
+  )
+}
+
 export function ProductPage() {
   const { id } = useParams()
   const navigate = useNavigate()
@@ -301,6 +329,7 @@ export function ProductPage() {
               ))}
             </tbody>
           </table>
+          {product.category === 'party' && product.size && <PartyPlanner size={product.size} />}
         </div>
       </div>
       {related.length > 0 && (
