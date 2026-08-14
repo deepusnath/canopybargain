@@ -2,8 +2,9 @@ import { useEffect, useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import {
   useCart, cartTotals, lineUnitPrice, lineName,
-  placeOrder, getOrder, type ShippingInfo,
+  placeOrder, getOrder, updateOrderDelivery, type ShippingInfo,
 } from '../shop/cartStore'
+import { deliverOrder, openStripeLink, paymentConfig } from '../shop/payment'
 import { productById, fmtMoney } from '../shop/catalog'
 import { ProductArt } from '../components/ProductArt'
 import { useParams } from 'react-router-dom'
@@ -114,7 +115,9 @@ export function CheckoutPage() {
   const totals = cartTotals(items, promo)
   const [info, setInfo] = useState<ShippingInfo>(EMPTY_SHIPPING)
   const [errors, setErrors] = useState<string[]>([])
+  const [placing, setPlacing] = useState(false)
   const navigate = useNavigate()
+  const { webhookUrl, stripeLink } = paymentConfig()
 
   useEffect(() => { document.title = 'Checkout — CanopyBargain' }, [])
 
@@ -130,8 +133,9 @@ export function CheckoutPage() {
   const set = (k: keyof ShippingInfo) => (e: React.ChangeEvent<HTMLInputElement>) =>
     setInfo({ ...info, [k]: e.target.value })
 
-  const submit = (e: React.FormEvent) => {
+  const submit = async (e: React.FormEvent) => {
     e.preventDefault()
+    if (placing) return
     const problems: string[] = []
     if (info.name.trim().length < 2) problems.push('Enter your full name.')
     if (!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(info.email)) problems.push('Enter a valid email address.')
@@ -141,7 +145,11 @@ export function CheckoutPage() {
     if (!/^\d{5}(-\d{4})?$/.test(info.zip.trim())) problems.push('Enter a valid ZIP code.')
     setErrors(problems)
     if (problems.length > 0) return
+    setPlacing(true)
     const order = placeOrder(items, promo, info)
+    const delivery = await deliverOrder(order)
+    updateOrderDelivery(order.id, delivery)
+    openStripeLink(order.id) // no-op unless a Stripe Payment Link is configured
     clear()
     navigate(`/order/${order.id}`)
   }
@@ -168,11 +176,20 @@ export function CheckoutPage() {
           )}
           <h2>Payment</h2>
           <div className="pay-demo">
-            <label className="check-row"><input type="radio" checked readOnly /> Demo payment (no charge)</label>
-            <p className="muted">Wire up Stripe or Shopify later — the order flow is ready for it.</p>
+            {stripeLink ? (
+              <label className="check-row"><input type="radio" checked readOnly /> Pay securely with Stripe (opens after ordering)</label>
+            ) : (
+              <>
+                <label className="check-row"><input type="radio" checked readOnly /> Demo payment (no charge)</label>
+                <p className="muted">
+                  Set VITE_STRIPE_PAYMENT_LINK to take real payments
+                  {webhookUrl ? '' : ' and VITE_ORDER_WEBHOOK_URL to receive orders'} — see .env.example.
+                </p>
+              </>
+            )}
           </div>
-          <button type="submit" className="btn btn-primary btn-lg btn-block">
-            Place order — {fmtMoney(totals.total)}
+          <button type="submit" className="btn btn-primary btn-lg btn-block" disabled={placing}>
+            {placing ? 'Placing order…' : `Place order — ${fmtMoney(totals.total)}`}
           </button>
         </form>
         <aside className="cart-summary">
@@ -228,7 +245,14 @@ export function OrderPage() {
     <main className="page">
       <div className="order-hero">
         <h1>🎉 Order placed!</h1>
-        <p>Thanks, {order.shipping.name.split(' ')[0]}. Confirmation <strong>{order.id}</strong> — a copy was “emailed” to {order.shipping.email} (demo).</p>
+        <p>Thanks, {order.shipping.name.split(' ')[0]}. Confirmation <strong>{order.id}</strong> for {order.shipping.email}.</p>
+        {order.delivery === 'sent' && <p className="ok">✓ Order delivered to the shop's fulfillment inbox.</p>}
+        {order.delivery === 'failed' && (
+          <p className="warn">⚠ We couldn't reach the fulfillment service — download your design files below and contact us with your order number.</p>
+        )}
+        {(order.delivery === 'skipped' || !order.delivery) && (
+          <p className="muted">Demo order — recorded in this browser only, nothing was charged.</p>
+        )}
       </div>
       <div className="cart-layout">
         <ul className="cart-lines">

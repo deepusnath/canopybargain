@@ -39,6 +39,21 @@ export interface Order {
   promo?: string
   total: number
   shipping: ShippingInfo
+  /** webhook delivery result — 'skipped' in demo mode (no webhook configured) */
+  delivery?: 'sent' | 'failed' | 'skipped'
+}
+
+export function updateOrderDelivery(id: string, delivery: NonNullable<Order['delivery']>): void {
+  try {
+    const orders = JSON.parse(localStorage.getItem(ORDERS_KEY) ?? '{}')
+    if (orders[id]) {
+      orders[id].delivery = delivery
+      localStorage.setItem(ORDERS_KEY, JSON.stringify(orders))
+    }
+  } catch {
+    /* best-effort */
+  }
+  if (lastOrder?.id === id) lastOrder.delivery = delivery
 }
 
 export function lineUnitPrice(item: CartItem): number {
