@@ -17,14 +17,52 @@ interface PartMesh {
   texture: THREE.CanvasTexture
 }
 
-/** Quad face (bl→br bottom edge, tl→tr top edge) with uv oriented for an outside viewer. */
-function quadGeometry(bl: V3, br: V3, tl: V3, tr: V3): THREE.BufferGeometry {
+/**
+ * Quad face (bl→br bottom edge, tl→tr top edge) with uv oriented for an outside
+ * viewer. topUFrac < 1 narrows the top edge's uv span: trapezoid panel textures
+ * draw their shape centered in a rectangular canvas, so the mesh must sample only
+ * the trapezoid region — full-rect uvs would pull in the transparent corners.
+ */
+function quadGeometry(bl: V3, br: V3, tl: V3, tr: V3, topUFrac = 1): THREE.BufferGeometry {
+  // Bilinear patch: subdividing keeps the narrowed-top uv mapping smooth
+  // (a single quad would show a diagonal seam from per-triangle affine uvs).
+  const seg = topUFrac < 1 ? 8 : 1
+  const u0 = 0.5 - topUFrac / 2
+  const u1 = 0.5 + topUFrac / 2
+  const positions: number[] = []
+  const uvs: number[] = []
+  const index: number[] = []
+  const lerp = (a: V3, b: V3, t: number): V3 => [
+    a[0] + (b[0] - a[0]) * t,
+    a[1] + (b[1] - a[1]) * t,
+    a[2] + (b[2] - a[2]) * t,
+  ]
+  for (let iy = 0; iy <= seg; iy++) {
+    const v = iy / seg
+    const left = lerp(bl, tl, v)
+    const right = lerp(br, tr, v)
+    const uStart = v * u0
+    const uEnd = 1 + v * (u1 - 1)
+    for (let ix = 0; ix <= seg; ix++) {
+      const s = ix / seg
+      const p = lerp(left, right, s)
+      positions.push(...p)
+      uvs.push(uStart + (uEnd - uStart) * s, v)
+    }
+  }
+  for (let iy = 0; iy < seg; iy++) {
+    for (let ix = 0; ix < seg; ix++) {
+      const a = iy * (seg + 1) + ix
+      const b = a + 1
+      const c = a + seg + 1
+      const d = c + 1
+      index.push(a, b, d, a, d, c)
+    }
+  }
   const g = new THREE.BufferGeometry()
-  const verts = new Float32Array([...bl, ...br, ...tr, ...tl])
-  const uvs = new Float32Array([0, 0, 1, 0, 1, 1, 0, 1])
-  g.setIndex([0, 1, 2, 0, 2, 3])
-  g.setAttribute('position', new THREE.BufferAttribute(verts, 3))
-  g.setAttribute('uv', new THREE.BufferAttribute(uvs, 2))
+  g.setIndex(index)
+  g.setAttribute('position', new THREE.BufferAttribute(new Float32Array(positions), 3))
+  g.setAttribute('uv', new THREE.BufferAttribute(new Float32Array(uvs), 2))
   g.computeVertexNormals()
   return g
 }
@@ -168,8 +206,10 @@ export function TentScene() {
       addPart('peak0', triGeometry(FL, FR, RF))
       addPart('peak2', triGeometry(BR, BL, RB))
       if (rh > 0.001) {
-        addPart('peak1', quadGeometry(FR, BR, RF, RB))
-        addPart('peak3', quadGeometry(BL, FL, RB, RF))
+        const sideSpec = specs.peak1.dims
+        const topFrac = (sideSpec.topWIn ?? sideSpec.wIn) / sideSpec.wIn
+        addPart('peak1', quadGeometry(FR, BR, RF, RB, topFrac))
+        addPart('peak3', quadGeometry(BL, FL, RB, RF, topFrac))
       } else {
         addPart('peak1', triGeometry(FR, BR, RF))
         addPart('peak3', triGeometry(BL, FL, RF))
