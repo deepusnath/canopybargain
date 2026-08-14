@@ -1,6 +1,15 @@
 import { useStore } from '../store'
-import type { PartId } from '../model/types'
+import type { PanelDesign, PartId } from '../model/types'
 import { partSpecs } from '../model/parts'
+
+/** A side "has content" when it carries layers, a pattern, or a non-default background. */
+function hasContent(panel: PanelDesign): boolean {
+  return (
+    panel.layers.length > 0 ||
+    (panel.background.pattern !== undefined && panel.background.pattern.id !== 'none') ||
+    panel.background.color.toLowerCase() !== '#ffffff'
+  )
+}
 
 const GROUPS: Array<{ label: string; ids: PartId[] }> = [
   { label: 'Peaks', ids: ['peak0', 'peak1', 'peak2', 'peak3'] },
@@ -45,15 +54,23 @@ export function PartTabs() {
         {activeGroup.ids.map((id, i) => {
           const spec = specs[id]
           const disabled = spec.optional && !design.parts[id].enabled
+          const filled = !disabled && hasContent(design.parts[id])
           return (
             <button
               key={id}
               className={`chip ${activePart === id ? 'chip-on' : ''} ${disabled ? 'chip-dim' : ''}`}
               onClick={() => setActivePart(id)}
-              title={disabled ? `${spec.label} is turned off — enable it in the sidebar` : spec.label}
+              title={
+                disabled
+                  ? `${spec.label} is turned off — enable it in the sidebar`
+                  : filled
+                    ? `${spec.label} — has design content`
+                    : spec.label
+              }
             >
               {isSided ? SIDE_SHORT[i] : spec.label}
               {disabled ? ' (off)' : ''}
+              {filled && <i className="chip-dot" aria-label="has design content" />}
             </button>
           )
         })}
