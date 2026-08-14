@@ -5,9 +5,9 @@ export function SiteHeader() {
   const items = useCart((s) => s.items)
   const count = cartCount(items)
   return (
-    <>
+    <header className="site-top">
       <div className="promo-bar">Free shipping on every order 🇺🇸 · Code <strong>BARGAIN10</strong> saves 10%</div>
-      <header className="site-header">
+      <div className="site-header">
         <Link to="/" className="site-brand">
           <span className="brand-mark">▲</span> Canopy<span className="brand-accent">Bargain</span>
         </Link>
@@ -19,8 +19,8 @@ export function SiteHeader() {
         <Link to="/cart" className="cart-link" aria-label={`Cart, ${count} items`}>
           🛒<span className="cart-badge">{count}</span>
         </Link>
-      </header>
-    </>
+      </div>
+    </header>
   )
 }
 

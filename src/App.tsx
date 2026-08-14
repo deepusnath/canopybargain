@@ -149,9 +149,9 @@ export default function ConfiguratorPage() {
   }
 
   return (
-    <div className="app config-wrap">
+    <main className="app config-wrap">
       <div className="studio-bar">
-        <span className="studio-title">🎨 Design Studio</span>
+        <h1 className="studio-title">🎨 Design Studio</h1>
         <input
           className="design-name"
           value={design.name}
@@ -185,6 +185,6 @@ export default function ConfiguratorPage() {
         </section>
       </div>
       {orderOpen && <OrderModal onClose={() => setOrderOpen(false)} onAddToCart={addToCart} />}
-    </div>
+    </main>
   )
 }

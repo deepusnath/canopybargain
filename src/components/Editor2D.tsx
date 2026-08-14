@@ -107,6 +107,37 @@ export function Editor2D() {
 
   useEffect(() => onImageReady(draw), [draw])
 
+  // keyboard alternative to pointer dragging: arrows nudge 1% (Shift = 5%),
+  // Delete/Backspace removes the selected layer
+  useEffect(() => {
+    const onKey = (e: KeyboardEvent) => {
+      const target = e.target as HTMLElement | null
+      if (target && /^(INPUT|TEXTAREA|SELECT)$/.test(target.tagName)) return
+      const { activePart: ap, selectedLayerId: sel, design: d } = useStore.getState()
+      if (!sel) return
+      const layer = d.parts[ap].layers.find((l) => l.id === sel)
+      if (!layer || layer.locked) return
+      const step = e.shiftKey ? 0.05 : 0.01
+      const nudge = (dx: number, dy: number) => {
+        e.preventDefault()
+        useStore.getState().updateLayer(ap, sel, {
+          x: Math.min(1, Math.max(0, layer.x + dx)),
+          y: Math.min(1, Math.max(0, layer.y + dy)),
+        })
+      }
+      if (e.key === 'ArrowLeft') nudge(-step, 0)
+      else if (e.key === 'ArrowRight') nudge(step, 0)
+      else if (e.key === 'ArrowUp') nudge(0, -step)
+      else if (e.key === 'ArrowDown') nudge(0, step)
+      else if (e.key === 'Delete' || e.key === 'Backspace') {
+        e.preventDefault()
+        useStore.getState().removeLayer(ap, sel)
+      }
+    }
+    window.addEventListener('keydown', onKey)
+    return () => window.removeEventListener('keydown', onKey)
+  }, [])
+
   const capture = (canvas: HTMLCanvasElement, pointerId: number) => {
     try {
       canvas.setPointerCapture(pointerId)
@@ -277,6 +308,9 @@ export function Editor2D() {
             width={w}
             height={h}
             className="editor-canvas"
+            role="application"
+            aria-label={`${spec.label} design canvas. Select a layer, then use arrow keys to nudge it (Shift for larger steps) or Delete to remove it.`}
+            tabIndex={0}
             onPointerDown={onPointerDown}
             onPointerMove={onPointerMove}
             onPointerUp={onPointerUp}

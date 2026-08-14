@@ -32,7 +32,7 @@ export function ProductCard({ product }: { product: Product }) {
         <ProductImage product={product} className="card-art" />
       </div>
       <div className="card-body">
-        <h3>{product.name}</h3>
+        <h2>{product.name}</h2>
         <p className="muted">{product.blurb}</p>
         <div className="card-price">
           <strong>{priceLabel(product)}</strong>
