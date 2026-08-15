@@ -18,6 +18,18 @@ const VALANCE_H = 15
 const WALL_H = 84
 const HALF_WALL_H = 42
 
+/**
+ * Which wall attributes each tent size supports. The PDP package builder and
+ * the studio sidebar both gate on this — a product only exposes the options
+ * it can actually be built with (the 5×5 frame has no half-wall rails).
+ */
+export const WALL_OPTIONS: Record<TentSize, { backWall: boolean; halfWalls: boolean }> = {
+  '5x5': { backWall: true, halfWalls: false },
+  '10x10': { backWall: true, halfWalls: true },
+  '10x15': { backWall: true, halfWalls: true },
+  '10x20': { backWall: true, halfWalls: true },
+}
+
 /** horizontal run from any eave edge to the ridge (hip roof, equal insets) */
 export function roofRun(frame: TentFrame): number {
   return (frame.wFt * 12) / 2

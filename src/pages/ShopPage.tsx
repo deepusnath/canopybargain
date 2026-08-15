@@ -5,6 +5,7 @@ import {
   type Category, type Product, type ProductVariant,
 } from '../shop/catalog'
 import { ProductArt } from '../components/ProductArt'
+import { PackageBuilder } from '../components/PackageBuilder'
 import { useCart } from '../shop/cartStore'
 import { track } from '../shop/analytics'
 
@@ -231,15 +232,7 @@ export function ProductPage() {
           {product.description.map((d, i) => <p key={i}>{d}</p>)}
 
           {product.customizable ? (
-            <div className="customize-cta">
-              <p><strong>This tent is fully customizable.</strong> Design it on a live 3D model — your artwork, colors, and optional walls — then add it to your cart from the studio.</p>
-              <button
-                className="btn btn-primary btn-lg"
-                onClick={() => navigate(`/customize/${product.id}`)}
-              >
-                🎨 Customize in Design Studio
-              </button>
-            </div>
+            <PackageBuilder product={product} />
           ) : (
             <>
               {hasVariantChoices && product.options.length >= 2 ? (

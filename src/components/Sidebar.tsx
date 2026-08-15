@@ -2,7 +2,7 @@ import { useRef, useState } from 'react'
 import { useStore, listSlots, saveSlot, loadSlot, deleteSlot } from '../store'
 import type { Design, ImageLayer, Layer, QrLayer, ShapeLayer, TentSize, TextLayer } from '../model/types'
 import { uid } from '../model/types'
-import { partSpecs } from '../model/parts'
+import { partSpecs, WALL_OPTIONS } from '../model/parts'
 import { PATTERNS } from '../model/patterns'
 import { fileToDataUrl } from '../render/imageCache'
 import { imageDpi } from '../render/panelRenderer'
@@ -188,16 +188,21 @@ export function Sidebar() {
             <option value="10x20">10 × 20 ft</option>
           </select>
         </label>
-        {(['backWall', 'halfWallLeft', 'halfWallRight'] as const).map((id) => (
-          <label key={id} className="check-row">
-            <input
-              type="checkbox"
-              checked={design.parts[id].enabled}
-              onChange={(e) => st().togglePart(id, e.target.checked)}
-            />
-            {partSpecs(design.tentSize)[id].label}
-          </label>
-        ))}
+        {(['backWall', 'halfWallLeft', 'halfWallRight'] as const)
+          .filter((id) => {
+            const allowed = WALL_OPTIONS[design.tentSize]
+            return id === 'backWall' ? allowed.backWall : allowed.halfWalls
+          })
+          .map((id) => (
+            <label key={id} className="check-row">
+              <input
+                type="checkbox"
+                checked={design.parts[id].enabled}
+                onChange={(e) => st().togglePart(id, e.target.checked)}
+              />
+              {partSpecs(design.tentSize)[id].label}
+            </label>
+          ))}
       </Section>
 
       <Section title={`${spec.label} — Background`}>

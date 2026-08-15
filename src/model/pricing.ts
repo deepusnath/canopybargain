@@ -14,6 +14,12 @@ export interface PriceItem {
   amount: number
 }
 
+export const WALL_PRICES = { backWall: 300, halfWall: 149 }
+
+export function basePrice(size: TentSize): number {
+  return BASE[size]
+}
+
 export function computePrice(design: Design): { total: number; items: PriceItem[] } {
   const items: PriceItem[] = [
     {
@@ -21,9 +27,12 @@ export function computePrice(design: Design): { total: number; items: PriceItem[
       amount: BASE[design.tentSize],
     },
   ]
-  if (design.parts.backWall.enabled) items.push({ label: 'Full back wall (printed)', amount: 300 })
-  if (design.parts.halfWallLeft.enabled) items.push({ label: 'Left half wall (printed)', amount: 149 })
-  if (design.parts.halfWallRight.enabled) items.push({ label: 'Right half wall (printed)', amount: 149 })
+  if (design.parts.backWall.enabled)
+    items.push({ label: 'Full back wall (printed)', amount: WALL_PRICES.backWall })
+  if (design.parts.halfWallLeft.enabled)
+    items.push({ label: 'Left half wall (printed)', amount: WALL_PRICES.halfWall })
+  if (design.parts.halfWallRight.enabled)
+    items.push({ label: 'Right half wall (printed)', amount: WALL_PRICES.halfWall })
   const total = items.reduce((s, i) => s + i.amount, 0)
   return { total, items }
 }

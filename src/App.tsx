@@ -120,6 +120,19 @@ export default function ConfiguratorPage() {
     if (product?.customizable && useStore.getState().design.tentSize !== product.customizable.size) {
       setTentSize(product.customizable.size)
     }
+    // package-builder presets: walls + printing mode chosen on the product page
+    const wallsParam = params.get('walls')
+    if (wallsParam !== null) {
+      const chosen = wallsParam.split(',')
+      const st = useStore.getState()
+      st.togglePart('backWall', chosen.includes('back'))
+      st.togglePart('halfWallLeft', chosen.includes('left'))
+      st.togglePart('halfWallRight', chosen.includes('right'))
+    }
+    const sameParam = params.get('same')
+    if (sameParam !== null) {
+      useStore.getState().setSameOnAllSides(sameParam === '1')
+    }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [productId, editKey, sharedParam])
 

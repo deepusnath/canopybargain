@@ -1,6 +1,7 @@
 import { create } from 'zustand'
 import type { Design, Layer, PanelDesign, PartId, TentSize } from './model/types'
 import { newDesign, uid, emptyPanel } from './model/types'
+import { WALL_OPTIONS } from './model/parts'
 
 const AUTOSAVE_KEY = 'apcanopy:autosave'
 const SLOTS_KEY = 'apcanopy:slots'
@@ -81,7 +82,18 @@ export const useStore = create<AppState>((set, get) => ({
   renderTick: 0,
 
   setDesignName: (name) => set((s) => ({ design: { ...s.design, name } })),
-  setTentSize: (size) => set((s) => ({ design: { ...s.design, tentSize: size } })),
+  setTentSize: (size) =>
+    set((s) => {
+      // disable wall parts the new size doesn't support (e.g. 5x5 half walls)
+      const allowed = WALL_OPTIONS[size]
+      const parts = { ...s.design.parts }
+      if (!allowed.backWall) parts.backWall = { ...parts.backWall, enabled: false }
+      if (!allowed.halfWalls) {
+        parts.halfWallLeft = { ...parts.halfWallLeft, enabled: false }
+        parts.halfWallRight = { ...parts.halfWallRight, enabled: false }
+      }
+      return { design: { ...s.design, tentSize: size, parts } }
+    }),
   setActivePart: (id) => {
     dropAbandonedEmptyText(get)
     set({ activePart: id, selectedLayerId: null })
