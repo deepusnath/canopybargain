@@ -72,9 +72,27 @@ export function CustomTentsPage() {
       <section className="home-section steps">
         <h2>How custom printing works</h2>
         <ol className="step-row">
-          <li><span className="step-n">1</span><strong>Build your package</strong><br />Size, walls, and printing options — priced live on the product page.</li>
-          <li><span className="step-n">2</span><strong>Design in 3D</strong><br />Colors, patterns, curved text, logos, even QR codes — see the finished tent before you buy.</li>
-          <li><span className="step-n">3</span><strong>We print & ship free</strong><br />Your design files ride along with the order, exactly as you approved them.</li>
+          <li>
+            <span className="step-n">1</span>
+            <div className="step-body">
+              <strong>Build your package</strong>
+              <p>Size, walls, and printing options — priced live on the product page.</p>
+            </div>
+          </li>
+          <li>
+            <span className="step-n">2</span>
+            <div className="step-body">
+              <strong>Design in 3D</strong>
+              <p>Colors, patterns, curved text, logos, even QR codes — see the finished tent before you buy.</p>
+            </div>
+          </li>
+          <li>
+            <span className="step-n">3</span>
+            <div className="step-body">
+              <strong>We print & ship free</strong>
+              <p>Your design files ride along with the order, exactly as you approved them.</p>
+            </div>
+          </li>
         </ol>
       </section>
 

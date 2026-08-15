@@ -58,9 +58,27 @@ export function HomePage() {
       <section className="home-section steps">
         <h2>Custom tents in three steps</h2>
         <ol className="step-row">
-          <li><span className="step-n">1</span><strong>Pick your size</strong><br />10×10, 10×15, or 10×20 — from {fmtMoney(399)}.</li>
-          <li><span className="step-n">2</span><strong>Design it live</strong><br />Logo, colors, patterns, curved text — on a real-time 3D tent.</li>
-          <li><span className="step-n">3</span><strong>Add to cart</strong><br />Your design ships with the order. Free shipping, always.</li>
+          <li>
+            <span className="step-n">1</span>
+            <div className="step-body">
+              <strong>Pick your size</strong>
+              <p>5×5 up to 10×20 — from {fmtMoney(299)}.</p>
+            </div>
+          </li>
+          <li>
+            <span className="step-n">2</span>
+            <div className="step-body">
+              <strong>Design it live</strong>
+              <p>Logo, colors, patterns, curved text — on a real-time 3D tent.</p>
+            </div>
+          </li>
+          <li>
+            <span className="step-n">3</span>
+            <div className="step-body">
+              <strong>Add to cart</strong>
+              <p>Your design ships with the order. Free shipping, always.</p>
+            </div>
+          </li>
         </ol>
       </section>
     </main>

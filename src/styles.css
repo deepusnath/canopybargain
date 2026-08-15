@@ -278,11 +278,15 @@ body {
 .section-title-row a { text-decoration: none; }
 .home-section h2 { margin-bottom: 14px; }
 .steps { background: var(--panel); border: 1px solid var(--line); border-radius: 16px; padding: 26px; }
-.step-row { list-style: none; padding: 0; display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+.step-row { list-style: none; padding: 0; display: grid; grid-template-columns: repeat(3, 1fr); gap: 26px; }
+.step-row li { display: flex; align-items: flex-start; gap: 14px; }
 .step-n {
-  display: inline-flex; width: 28px; height: 28px; border-radius: 999px; background: var(--accent);
-  color: var(--accent-ink); font-weight: 800; align-items: center; justify-content: center; margin-bottom: 8px;
+  display: flex; flex: none; width: 30px; height: 30px; border-radius: 999px; background: var(--accent);
+  color: var(--accent-ink); font-weight: 800; align-items: center; justify-content: center;
 }
+.step-body { display: flex; flex-direction: column; gap: 5px; padding-top: 4px; }
+.step-body strong { font-size: 15px; }
+.step-body p { color: var(--muted); line-height: 1.5; }
 
 /* product grid + cards */
 .product-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 18px; }
