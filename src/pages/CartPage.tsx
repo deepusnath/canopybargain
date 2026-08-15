@@ -125,8 +125,18 @@ export function CheckoutPage() {
   const [promoMsg, setPromoMsg] = useState('')
   const [errors, setErrors] = useState<string[]>([])
   const [placing, setPlacing] = useState(false)
+  const [expressMsg, setExpressMsg] = useState('')
   const navigate = useNavigate()
   const { stripeLink } = paymentConfig()
+
+  const expressClick = (provider: string) => {
+    track('begin_checkout')
+    setExpressMsg(
+      `${provider} express checkout activates when the shop's payment account is connected — ` +
+      'complete your order with the card form below for now.',
+    )
+    setTimeout(() => setExpressMsg(''), 6000)
+  }
 
   useEffect(() => {
     document.title = 'Checkout — CanopyBargain'
@@ -178,6 +188,25 @@ export function CheckoutPage() {
       </p>
       <div className="cart-layout">
         <form className="checkout-form" onSubmit={submit} noValidate>
+          <div className="express-box">
+            <span className="express-label">Express checkout</span>
+            <div className="express-grid">
+              <button type="button" className="express-btn express-shop" onClick={() => expressClick('Shop Pay')}>
+                shop
+              </button>
+              <button type="button" className="express-btn express-paypal" onClick={() => expressClick('PayPal')}>
+                <i>Pay</i><b>Pal</b>
+              </button>
+              <button type="button" className="express-btn express-gpay" onClick={() => expressClick('Google Pay')}>
+                G Pay
+              </button>
+              <button type="button" className="express-btn express-venmo" onClick={() => expressClick('Venmo')}>
+                venmo
+              </button>
+            </div>
+            {expressMsg && <p className="muted express-msg">{expressMsg}</p>}
+            <div className="or-divider"><span>OR</span></div>
+          </div>
           <h2>Contact</h2>
           <label className="field"><span>Email</span>
             <input type="email" value={info.email} onChange={set('email')} autoComplete="email" placeholder="you@company.com" />

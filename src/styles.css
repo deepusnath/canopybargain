@@ -516,3 +516,25 @@ body {
 .size-card-body h3 { font-size: 18px; }
 .size-card-body strong { font-size: 20px; }
 .compare-standalone .size-compare { background: var(--panel); border: 1px solid var(--line); border-radius: 12px; padding: 14px 16px; }
+
+/* express checkout */
+.express-box { display: flex; flex-direction: column; gap: 10px; }
+.express-label { text-align: center; color: var(--muted); font-size: 13px; font-weight: 600; }
+.express-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; }
+.express-btn {
+  border: none; border-radius: 9px; padding: 12px 8px; font-size: 16px; font-weight: 800;
+  cursor: pointer; color: #fff; font-family: inherit; line-height: 1;
+}
+.express-btn:hover { filter: brightness(1.08); }
+.express-shop { background: #5a31f4; letter-spacing: 0.5px; }
+.express-paypal { background: #ffc439; }
+.express-paypal i { color: #003087; font-style: italic; font-weight: 800; }
+.express-paypal b { color: #0070ba; font-style: italic; }
+.express-gpay { background: #000; font-weight: 600; }
+.express-venmo { background: #3d95ce; font-style: italic; letter-spacing: 0.3px; }
+.express-msg { text-align: center; }
+.or-divider {
+  display: flex; align-items: center; gap: 12px; color: var(--muted); font-size: 12px; margin-top: 2px;
+}
+.or-divider::before, .or-divider::after { content: ''; flex: 1; border-top: 1px solid var(--line); }
+@media (max-width: 560px) { .express-grid { grid-template-columns: 1fr 1fr; } }
