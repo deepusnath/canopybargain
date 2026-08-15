@@ -25,9 +25,12 @@ export interface ShippingInfo {
   name: string
   email: string
   address: string
+  apt?: string
   city: string
   state: string
   zip: string
+  country: string
+  phone?: string
 }
 
 export interface Order {

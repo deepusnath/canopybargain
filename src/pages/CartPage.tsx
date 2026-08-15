@@ -6,6 +6,7 @@ import {
 } from '../shop/cartStore'
 import { deliverOrder, openStripeLink, paymentConfig } from '../shop/payment'
 import { track } from '../shop/analytics'
+import { validateCard, formatCardNumber, formatExpiry, EMPTY_CARD, type CardInfo } from '../shop/cardValidation'
 import { productById, fmtMoney, sizedImage } from '../shop/catalog'
 import { ProductArt } from '../components/ProductArt'
 import { useParams } from 'react-router-dom'
@@ -108,17 +109,24 @@ export function CartPage() {
   )
 }
 
-const EMPTY_SHIPPING: ShippingInfo = { name: '', email: '', address: '', city: '', state: '', zip: '' }
+const EMPTY_SHIPPING: ShippingInfo = {
+  name: '', email: '', address: '', apt: '', city: '', state: '', zip: '', country: 'United States', phone: '',
+}
 
 export function CheckoutPage() {
   const { items, promo } = useCart()
   const clear = useCart((s) => s.clear)
+  const applyPromo = useCart((s) => s.applyPromo)
   const totals = cartTotals(items, promo)
   const [info, setInfo] = useState<ShippingInfo>(EMPTY_SHIPPING)
+  const [card, setCard] = useState<CardInfo>(EMPTY_CARD)
+  const [billingSame, setBillingSame] = useState(true)
+  const [code, setCode] = useState('')
+  const [promoMsg, setPromoMsg] = useState('')
   const [errors, setErrors] = useState<string[]>([])
   const [placing, setPlacing] = useState(false)
   const navigate = useNavigate()
-  const { webhookUrl, stripeLink } = paymentConfig()
+  const { stripeLink } = paymentConfig()
 
   useEffect(() => {
     document.title = 'Checkout — CanopyBargain'
@@ -134,22 +142,25 @@ export function CheckoutPage() {
     )
   }
 
-  const set = (k: keyof ShippingInfo) => (e: React.ChangeEvent<HTMLInputElement>) =>
+  const set = (k: keyof ShippingInfo) => (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) =>
     setInfo({ ...info, [k]: e.target.value })
 
   const submit = async (e: React.FormEvent) => {
     e.preventDefault()
     if (placing) return
     const problems: string[] = []
-    if (info.name.trim().length < 2) problems.push('Enter your full name.')
     if (!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(info.email)) problems.push('Enter a valid email address.')
+    if (info.name.trim().length < 2) problems.push('Enter your full name.')
     if (info.address.trim().length < 5) problems.push('Enter your street address.')
     if (info.city.trim().length < 2) problems.push('Enter your city.')
     if (info.state.trim().length < 2) problems.push('Enter your state.')
     if (!/^\d{5}(-\d{4})?$/.test(info.zip.trim())) problems.push('Enter a valid ZIP code.')
+    if (!stripeLink) problems.push(...validateCard(card))
     setErrors(problems)
     if (problems.length > 0) return
     setPlacing(true)
+    // Card data is intentionally NOT part of the order: validated above, then
+    // discarded. Real charging goes through Stripe when configured.
     const order = placeOrder(items, promo, info)
     track('place_order', { total: order.total })
     const delivery = await deliverOrder(order)
@@ -162,54 +173,146 @@ export function CheckoutPage() {
   return (
     <main className="page">
       <h1>Checkout</h1>
-      <p className="demo-note">Demo checkout — no payment is collected and nothing is charged.</p>
+      <p className="demo-note">
+        Demo checkout — nothing is charged. Card details are checked locally and never stored or sent.
+      </p>
       <div className="cart-layout">
         <form className="checkout-form" onSubmit={submit} noValidate>
-          <h2>Shipping</h2>
-          <label className="field"><span>Full name</span><input value={info.name} onChange={set('name')} autoComplete="name" /></label>
-          <label className="field"><span>Email</span><input type="email" value={info.email} onChange={set('email')} autoComplete="email" /></label>
-          <label className="field"><span>Street address</span><input value={info.address} onChange={set('address')} autoComplete="street-address" /></label>
+          <h2>Contact</h2>
+          <label className="field"><span>Email</span>
+            <input type="email" value={info.email} onChange={set('email')} autoComplete="email" placeholder="you@company.com" />
+          </label>
+          <label className="check-row muted">
+            <input type="checkbox" defaultChecked /> Email me order updates and offers
+          </label>
+
+          <h2>Delivery</h2>
+          <label className="field"><span>Country / region</span>
+            <select value={info.country} onChange={set('country')} autoComplete="country-name">
+              <option>United States</option>
+              <option>Canada</option>
+              <option>Mexico</option>
+            </select>
+          </label>
+          <label className="field"><span>Full name</span>
+            <input value={info.name} onChange={set('name')} autoComplete="name" />
+          </label>
+          <label className="field"><span>Street address</span>
+            <input value={info.address} onChange={set('address')} autoComplete="street-address" />
+          </label>
+          <label className="field"><span>Apartment, suite, etc. (optional)</span>
+            <input value={info.apt ?? ''} onChange={set('apt')} autoComplete="address-line2" />
+          </label>
           <div className="field-row">
-            <label className="field"><span>City</span><input value={info.city} onChange={set('city')} autoComplete="address-level2" /></label>
-            <label className="field"><span>State</span><input value={info.state} onChange={set('state')} autoComplete="address-level1" /></label>
-            <label className="field"><span>ZIP</span><input value={info.zip} onChange={set('zip')} inputMode="numeric" autoComplete="postal-code" /></label>
+            <label className="field"><span>City</span>
+              <input value={info.city} onChange={set('city')} autoComplete="address-level2" />
+            </label>
+            <label className="field"><span>State</span>
+              <input value={info.state} onChange={set('state')} autoComplete="address-level1" />
+            </label>
+            <label className="field"><span>ZIP</span>
+              <input value={info.zip} onChange={set('zip')} inputMode="numeric" autoComplete="postal-code" />
+            </label>
           </div>
+          <label className="field"><span>Phone (optional, for delivery updates)</span>
+            <input type="tel" value={info.phone ?? ''} onChange={set('phone')} autoComplete="tel" />
+          </label>
+
+          <h2>Shipping method</h2>
+          <div className="ship-method">
+            <label className="check-row">
+              <input type="radio" checked readOnly /> Standard shipping (5–8 business days)
+            </label>
+            <strong className="ok">Free</strong>
+          </div>
+
+          <h2>Payment</h2>
+          {stripeLink ? (
+            <div className="pay-demo">
+              <label className="check-row"><input type="radio" checked readOnly /> Pay securely with Stripe (opens after ordering)</label>
+            </div>
+          ) : (
+            <div className="card-box">
+              <div className="card-box-head">
+                <span>💳 Card</span>
+                <span className="muted">Demo — validated locally, never stored or sent</span>
+              </div>
+              <label className="field"><span>Card number</span>
+                <input
+                  value={card.number}
+                  onChange={(e) => setCard({ ...card, number: formatCardNumber(e.target.value) })}
+                  inputMode="numeric"
+                  placeholder="4242 4242 4242 4242"
+                  autoComplete="off"
+                />
+              </label>
+              <div className="field-row card-row">
+                <label className="field"><span>Expiry (MM/YY)</span>
+                  <input
+                    value={card.expiry}
+                    onChange={(e) => setCard({ ...card, expiry: formatExpiry(e.target.value) })}
+                    inputMode="numeric"
+                    placeholder="12/28"
+                    autoComplete="off"
+                  />
+                </label>
+                <label className="field"><span>Security code</span>
+                  <input
+                    value={card.cvc}
+                    onChange={(e) => setCard({ ...card, cvc: e.target.value.replace(/\D/g, '').slice(0, 4) })}
+                    inputMode="numeric"
+                    placeholder="123"
+                    autoComplete="off"
+                  />
+                </label>
+              </div>
+              <label className="field"><span>Name on card</span>
+                <input value={card.nameOnCard} onChange={(e) => setCard({ ...card, nameOnCard: e.target.value })} autoComplete="off" />
+              </label>
+              <label className="check-row">
+                <input type="checkbox" checked={billingSame} onChange={(e) => setBillingSame(e.target.checked)} />
+                Billing address same as shipping
+              </label>
+              {!billingSame && (
+                <p className="muted">Billing address entry arrives with the Stripe integration — using the shipping address for now.</p>
+              )}
+            </div>
+          )}
+
           {errors.length > 0 && (
             <ul className="warn error-list">
               {errors.map((e) => <li key={e}>{e}</li>)}
             </ul>
           )}
-          <h2>Payment</h2>
-          <div className="pay-demo">
-            {stripeLink ? (
-              <label className="check-row"><input type="radio" checked readOnly /> Pay securely with Stripe (opens after ordering)</label>
-            ) : (
-              <>
-                <label className="check-row"><input type="radio" checked readOnly /> Demo payment (no charge)</label>
-                <p className="muted">
-                  Set VITE_STRIPE_PAYMENT_LINK to take real payments
-                  {webhookUrl ? '' : ' and VITE_ORDER_WEBHOOK_URL to receive orders'} — see .env.example.
-                </p>
-              </>
-            )}
-          </div>
           <button type="submit" className="btn btn-primary btn-lg btn-block" disabled={placing}>
             {placing ? 'Placing order…' : `Place order — ${fmtMoney(totals.total)}`}
           </button>
         </form>
         <aside className="cart-summary">
           <h2>Order</h2>
-          <ul className="mini-lines">
+          <ul className="mini-lines mini-lines-thumbs">
             {items.map((i) => (
               <li key={i.key}>
-                <span>{i.qty} × {lineName(i)}</span>
+                <span className="mini-thumb-wrap"><LineArt item={i} /><i className="mini-qty">{i.qty}</i></span>
+                <span className="mini-name">{lineName(i)}</span>
                 <span>{fmtMoney(lineUnitPrice(i) * i.qty)}</span>
               </li>
             ))}
           </ul>
+          <div className="promo-row">
+            <input placeholder="Discount code" value={code} onChange={(e) => setCode(e.target.value)} aria-label="Discount code" />
+            <button
+              type="button"
+              className="btn btn-sm"
+              onClick={() => setPromoMsg(applyPromo(code) ? '✓ 10% off applied' : 'Code not recognized')}
+            >
+              Apply
+            </button>
+          </div>
+          {promoMsg && <p className={promoMsg.startsWith('✓') ? 'ok' : 'warn'}>{promoMsg}</p>}
           <dl className="totals">
             <div><dt>Subtotal</dt><dd>{fmtMoney(totals.subtotal)}</dd></div>
-            {totals.discount > 0 && <div className="ok"><dt>Discount</dt><dd>−{fmtMoney(totals.discount)}</dd></div>}
+            {totals.discount > 0 && <div className="ok"><dt>Discount ({promo})</dt><dd>−{fmtMoney(totals.discount)}</dd></div>}
             <div><dt>Shipping</dt><dd>Free</dd></div>
             <div className="grand"><dt>Total</dt><dd>{fmtMoney(totals.total)}</dd></div>
           </dl>
