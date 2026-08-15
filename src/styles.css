@@ -498,3 +498,21 @@ body {
   .header { flex-wrap: wrap; }
   .design-name { flex: 1 1 120px; }
 }
+
+/* custom tents landing */
+.custom-hero {
+  background: linear-gradient(135deg, #121820 0%, #1c2530 100%); color: #fff;
+  border-radius: 16px; padding: 42px 38px; margin-bottom: 30px;
+}
+.custom-hero h1 { font-size: 32px; line-height: 1.15; margin: 12px 0; }
+.custom-hero p { color: #cbd4de; max-width: 56ch; margin-bottom: 18px; }
+.custom-hero .trust-row { color: #aeb8c4; }
+.size-cards { display: grid; grid-template-columns: repeat(auto-fill, minmax(230px, 1fr)); gap: 18px; margin-bottom: 16px; }
+.size-card {
+  background: var(--panel); border: 1px solid var(--line); border-radius: 14px; overflow: hidden;
+  display: flex; flex-direction: column;
+}
+.size-card-body { padding: 12px 14px 16px; display: flex; flex-direction: column; gap: 8px; }
+.size-card-body h3 { font-size: 18px; }
+.size-card-body strong { font-size: 20px; }
+.compare-standalone .size-compare { background: var(--panel); border: 1px solid var(--line); border-radius: 12px; padding: 14px 16px; }

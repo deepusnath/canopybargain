@@ -13,7 +13,7 @@ export function SiteHeader() {
         </Link>
         <nav className="site-nav" aria-label="Main">
           <NavLink to="/shop">Shop</NavLink>
-          <NavLink to="/shop/custom">Custom Tents</NavLink>
+          <NavLink to="/custom-tents">Custom Tents</NavLink>
           <NavLink to="/customize" className="nav-cta">Design Studio</NavLink>
         </nav>
         <Link to="/cart" className="cart-link" aria-label={`Cart, ${count} items`}>

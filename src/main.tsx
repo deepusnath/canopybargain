@@ -5,6 +5,7 @@ import { useEffect } from 'react'
 import { HomePage } from './pages/HomePage'
 import { ShopPage, ProductPage } from './pages/ShopPage'
 import { CartPage, CheckoutPage, OrderPage } from './pages/CartPage'
+import { CustomTentsPage } from './pages/CustomTentsPage'
 import { SiteHeader, SiteFooter } from './components/SiteChrome'
 import { initAnalytics, trackPageview } from './shop/analytics'
 import './styles.css'
@@ -42,6 +43,7 @@ function Site() {
         <Routes>
           <Route path="/" element={<HomePage />} />
           <Route path="/shop" element={<ShopPage />} />
+          <Route path="/custom-tents" element={<CustomTentsPage />} />
           <Route path="/shop/:category" element={<ShopPage />} />
           <Route path="/product/:id" element={<ProductPage />} />
           <Route

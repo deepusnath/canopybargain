@@ -137,7 +137,7 @@ export function PackageBuilder({ product }: { product: Product }) {
 }
 
 /** Side-by-side comparison of the customizable sizes. */
-function SizeCompareTable({ current }: { current: TentSize }) {
+export function SizeCompareTable({ current }: { current: TentSize | null }) {
   const rows = PRODUCTS.filter((p) => p.customizable).sort((a, b) => a.price - b.price)
   return (
     <details className="size-compare">
