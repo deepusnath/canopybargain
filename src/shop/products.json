@@ -539,6 +539,39 @@
     "sourceUrl": "https://www.apcanopy.com/products/american-phoenix-price-difference"
   },
   {
+    "id": "sand-bags-for-canopy-legs",
+    "name": "Sand Bags for Canopy Legs",
+    "category": "canopy",
+    "size": null,
+    "price": 19.99,
+    "priceMax": 19.99,
+    "compareAt": null,
+    "images": [
+      "https://cdn.shopify.com/s/files/1/0258/9324/0892/files/1_9b55df0e-2d9f-4d30-ac84-9b53484f9e21.jpg?v=1770881272",
+      "https://cdn.shopify.com/s/files/1/0258/9324/0892/files/2_49b72e83-ba0a-472c-acc6-541c6da79867.jpg?v=1770881273",
+      "https://cdn.shopify.com/s/files/1/0258/9324/0892/files/3_1d29f6af-024e-4d72-9d67-0018fb7e1d8d.jpg?v=1770881272",
+      "https://cdn.shopify.com/s/files/1/0258/9324/0892/files/4_781f1a5d-4a8e-40c2-8322-5f4187402c71.jpg?v=1770881272",
+      "https://cdn.shopify.com/s/files/1/0258/9324/0892/files/1_bf7862a5-eaa8-448f-b0bc-8a69720ceaba.jpg?v=1770881272",
+      "https://cdn.shopify.com/s/files/1/0258/9324/0892/files/f4b2f7fb996c75d13621ad01b152e010.jpg?v=1770881272"
+    ],
+    "options": [],
+    "variants": [
+      {
+        "id": "55257084756136",
+        "label": "Default",
+        "optionValues": [],
+        "price": 19.99,
+        "compareAt": null,
+        "available": true,
+        "imageSrc": null
+      }
+    ],
+    "tags": [],
+    "productType": null,
+    "customizableSize": null,
+    "sourceUrl": "https://www.apcanopy.com/products/sand-bags-for-canopy-legs"
+  },
+  {
     "id": "tent-crossbar-clamps-2pc",
     "name": "Tent crossbar clamps 2pc",
     "category": "canopy",
@@ -2888,7 +2921,7 @@
         "optionValues": [],
         "price": 49.99,
         "compareAt": null,
-        "available": false,
+        "available": true,
         "imageSrc": null
       }
     ],
@@ -3140,7 +3173,7 @@
         ],
         "price": 169,
         "compareAt": null,
-        "available": true,
+        "available": false,
         "imageSrc": "https://cdn.shopify.com/s/files/1/0258/9324/0892/files/250403-01.jpg?v=1777346880"
       },
       {
@@ -3151,7 +3184,7 @@
         ],
         "price": 169,
         "compareAt": null,
-        "available": false,
+        "available": true,
         "imageSrc": "https://cdn.shopify.com/s/files/1/0258/9324/0892/files/250403-08.jpg?v=1777346909"
       },
       {
@@ -3184,7 +3217,7 @@
         ],
         "price": 199,
         "compareAt": null,
-        "available": true,
+        "available": false,
         "imageSrc": "https://cdn.shopify.com/s/files/1/0258/9324/0892/files/250403-10.jpg?v=1777346909"
       },
       {
@@ -3281,7 +3314,7 @@
         ],
         "price": 89,
         "compareAt": null,
-        "available": true,
+        "available": false,
         "imageSrc": "https://cdn.shopify.com/s/files/1/0258/9324/0892/files/250403-5x5-09.jpg?v=1777347559"
       },
       {
@@ -3292,7 +3325,7 @@
         ],
         "price": 89,
         "compareAt": null,
-        "available": true,
+        "available": false,
         "imageSrc": "https://cdn.shopify.com/s/files/1/0258/9324/0892/files/250403-5x5-11.jpg?v=1777347559"
       }
     ],
