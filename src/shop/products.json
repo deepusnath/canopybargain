@@ -155,6 +155,7 @@
     "priceMax": 399,
     "compareAt": null,
     "images": [
+      "https://cdn.shopify.com/s/files/1/0258/9324/0892/files/Pink_canopy_1.jpg?v=1788517185",
       "https://cdn.shopify.com/s/files/1/0258/9324/0892/files/customcanopytent10x10_2.jpg?v=1770621820",
       "https://cdn.shopify.com/s/files/1/0258/9324/0892/files/customcanopytent10x10_5.jpg?v=1770621820",
       "https://cdn.shopify.com/s/files/1/0258/9324/0892/files/customcanopytent10x10_1.jpg?v=1770622395",
@@ -174,7 +175,7 @@
         "price": 399,
         "compareAt": null,
         "available": true,
-        "imageSrc": "https://cdn.shopify.com/s/files/1/0258/9324/0892/files/customcanopytent10x10_2.jpg?v=1770621820"
+        "imageSrc": "https://cdn.shopify.com/s/files/1/0258/9324/0892/files/Pink_canopy_1.jpg?v=1788517185"
       }
     ],
     "tags": [
@@ -306,6 +307,400 @@
     "productType": null,
     "customizableSize": null,
     "sourceUrl": "https://www.apcanopy.com/products/custom-feather-flag"
+  },
+  {
+    "id": "custom-t-shirts-for-team-events",
+    "name": "Custom T-shirts for Team Events",
+    "category": "custom",
+    "size": null,
+    "price": 12.99,
+    "priceMax": 12.99,
+    "compareAt": null,
+    "images": [
+      "https://cdn.shopify.com/s/files/1/0258/9324/0892/files/image_1.jpg?v=1788403321",
+      "https://cdn.shopify.com/s/files/1/0258/9324/0892/files/image_2.jpg?v=1788403321",
+      "https://cdn.shopify.com/s/files/1/0258/9324/0892/files/image_3.jpg?v=1788403321",
+      "https://cdn.shopify.com/s/files/1/0258/9324/0892/files/image_4.jpg?v=1788403321",
+      "https://cdn.shopify.com/s/files/1/0258/9324/0892/files/image_5.jpg?v=1788403321",
+      "https://cdn.shopify.com/s/files/1/0258/9324/0892/files/image_6.jpg?v=1788403321"
+    ],
+    "options": [
+      "COLOR",
+      "SIZE"
+    ],
+    "variants": [
+      {
+        "id": "55943565148328",
+        "label": "White / S",
+        "optionValues": [
+          "White",
+          "S"
+        ],
+        "price": 12.99,
+        "compareAt": null,
+        "available": true,
+        "imageSrc": null
+      },
+      {
+        "id": "55943565181096",
+        "label": "White / M",
+        "optionValues": [
+          "White",
+          "M"
+        ],
+        "price": 12.99,
+        "compareAt": null,
+        "available": true,
+        "imageSrc": null
+      },
+      {
+        "id": "55943565213864",
+        "label": "White / L",
+        "optionValues": [
+          "White",
+          "L"
+        ],
+        "price": 12.99,
+        "compareAt": null,
+        "available": true,
+        "imageSrc": null
+      },
+      {
+        "id": "55943565246632",
+        "label": "White / XL",
+        "optionValues": [
+          "White",
+          "XL"
+        ],
+        "price": 12.99,
+        "compareAt": null,
+        "available": true,
+        "imageSrc": null
+      },
+      {
+        "id": "55943565279400",
+        "label": "White / 2XL",
+        "optionValues": [
+          "White",
+          "2XL"
+        ],
+        "price": 12.99,
+        "compareAt": null,
+        "available": true,
+        "imageSrc": null
+      },
+      {
+        "id": "55943565312168",
+        "label": "White / 3XL",
+        "optionValues": [
+          "White",
+          "3XL"
+        ],
+        "price": 12.99,
+        "compareAt": null,
+        "available": true,
+        "imageSrc": null
+      },
+      {
+        "id": "55943565344936",
+        "label": "White / 4XL",
+        "optionValues": [
+          "White",
+          "4XL"
+        ],
+        "price": 12.99,
+        "compareAt": null,
+        "available": true,
+        "imageSrc": null
+      },
+      {
+        "id": "55943565377704",
+        "label": "Black / S",
+        "optionValues": [
+          "Black",
+          "S"
+        ],
+        "price": 12.99,
+        "compareAt": null,
+        "available": false,
+        "imageSrc": null
+      },
+      {
+        "id": "55943565410472",
+        "label": "Black / M",
+        "optionValues": [
+          "Black",
+          "M"
+        ],
+        "price": 12.99,
+        "compareAt": null,
+        "available": true,
+        "imageSrc": null
+      },
+      {
+        "id": "55943565443240",
+        "label": "Black / L",
+        "optionValues": [
+          "Black",
+          "L"
+        ],
+        "price": 12.99,
+        "compareAt": null,
+        "available": true,
+        "imageSrc": null
+      },
+      {
+        "id": "55943565476008",
+        "label": "Black / XL",
+        "optionValues": [
+          "Black",
+          "XL"
+        ],
+        "price": 12.99,
+        "compareAt": null,
+        "available": true,
+        "imageSrc": null
+      },
+      {
+        "id": "55943565508776",
+        "label": "Black / 2XL",
+        "optionValues": [
+          "Black",
+          "2XL"
+        ],
+        "price": 12.99,
+        "compareAt": null,
+        "available": true,
+        "imageSrc": null
+      },
+      {
+        "id": "55943565541544",
+        "label": "Black / 3XL",
+        "optionValues": [
+          "Black",
+          "3XL"
+        ],
+        "price": 12.99,
+        "compareAt": null,
+        "available": true,
+        "imageSrc": null
+      },
+      {
+        "id": "55943565574312",
+        "label": "Black / 4XL",
+        "optionValues": [
+          "Black",
+          "4XL"
+        ],
+        "price": 12.99,
+        "compareAt": null,
+        "available": true,
+        "imageSrc": null
+      }
+    ],
+    "tags": [
+      "custom t-shirts"
+    ],
+    "productType": null,
+    "customizableSize": null,
+    "sourceUrl": "https://www.apcanopy.com/products/custom-t-shirts-for-team-events"
+  },
+  {
+    "id": "custom-t-shirts-team-event-t-shirts-dtf-printing",
+    "name": "Custom T-shirts, Team Event T-shirts, DTF Printing.",
+    "category": "custom",
+    "size": null,
+    "price": 6.99,
+    "priceMax": 6.99,
+    "compareAt": null,
+    "images": [
+      "https://cdn.shopify.com/s/files/1/0258/9324/0892/files/image_1_eb755d38-4645-465e-810b-38c8816abf28.jpg?v=1788403733",
+      "https://cdn.shopify.com/s/files/1/0258/9324/0892/files/image_2_277562ce-832b-4d97-85e0-389da010db7b.jpg?v=1788403732",
+      "https://cdn.shopify.com/s/files/1/0258/9324/0892/files/image_3_fbf29b21-75a7-4fcf-8442-361f8e7e427f.jpg?v=1788403732",
+      "https://cdn.shopify.com/s/files/1/0258/9324/0892/files/image_4_e0465e7a-63d1-46c5-8d56-187b30950696.jpg?v=1788403733",
+      "https://cdn.shopify.com/s/files/1/0258/9324/0892/files/image_5_879013ad-47be-4c14-a6d4-061da4e19630.jpg?v=1788403733",
+      "https://cdn.shopify.com/s/files/1/0258/9324/0892/files/image_6_79d1cb82-ff47-483b-ace3-d93b5b227715.jpg?v=1788403732"
+    ],
+    "options": [
+      "COLOR",
+      "SIZE"
+    ],
+    "variants": [
+      {
+        "id": "55943566262440",
+        "label": "White / S",
+        "optionValues": [
+          "White",
+          "S"
+        ],
+        "price": 6.99,
+        "compareAt": null,
+        "available": true,
+        "imageSrc": null
+      },
+      {
+        "id": "55943566295208",
+        "label": "White / M",
+        "optionValues": [
+          "White",
+          "M"
+        ],
+        "price": 6.99,
+        "compareAt": null,
+        "available": true,
+        "imageSrc": null
+      },
+      {
+        "id": "55943566327976",
+        "label": "White / L",
+        "optionValues": [
+          "White",
+          "L"
+        ],
+        "price": 6.99,
+        "compareAt": null,
+        "available": true,
+        "imageSrc": null
+      },
+      {
+        "id": "55943566360744",
+        "label": "White / XL",
+        "optionValues": [
+          "White",
+          "XL"
+        ],
+        "price": 6.99,
+        "compareAt": null,
+        "available": true,
+        "imageSrc": null
+      },
+      {
+        "id": "55943566393512",
+        "label": "White / 2XL",
+        "optionValues": [
+          "White",
+          "2XL"
+        ],
+        "price": 6.99,
+        "compareAt": null,
+        "available": true,
+        "imageSrc": null
+      },
+      {
+        "id": "55943566426280",
+        "label": "White / 3XL",
+        "optionValues": [
+          "White",
+          "3XL"
+        ],
+        "price": 6.99,
+        "compareAt": null,
+        "available": true,
+        "imageSrc": null
+      },
+      {
+        "id": "55943566459048",
+        "label": "White / 4XL",
+        "optionValues": [
+          "White",
+          "4XL"
+        ],
+        "price": 6.99,
+        "compareAt": null,
+        "available": true,
+        "imageSrc": null
+      },
+      {
+        "id": "55943566491816",
+        "label": "Black / S",
+        "optionValues": [
+          "Black",
+          "S"
+        ],
+        "price": 6.99,
+        "compareAt": null,
+        "available": false,
+        "imageSrc": null
+      },
+      {
+        "id": "55943566524584",
+        "label": "Black / M",
+        "optionValues": [
+          "Black",
+          "M"
+        ],
+        "price": 6.99,
+        "compareAt": null,
+        "available": true,
+        "imageSrc": null
+      },
+      {
+        "id": "55943566557352",
+        "label": "Black / L",
+        "optionValues": [
+          "Black",
+          "L"
+        ],
+        "price": 6.99,
+        "compareAt": null,
+        "available": true,
+        "imageSrc": null
+      },
+      {
+        "id": "55943566590120",
+        "label": "Black / XL",
+        "optionValues": [
+          "Black",
+          "XL"
+        ],
+        "price": 6.99,
+        "compareAt": null,
+        "available": true,
+        "imageSrc": null
+      },
+      {
+        "id": "55943566622888",
+        "label": "Black / 2XL",
+        "optionValues": [
+          "Black",
+          "2XL"
+        ],
+        "price": 6.99,
+        "compareAt": null,
+        "available": true,
+        "imageSrc": null
+      },
+      {
+        "id": "55943566655656",
+        "label": "Black / 3XL",
+        "optionValues": [
+          "Black",
+          "3XL"
+        ],
+        "price": 6.99,
+        "compareAt": null,
+        "available": true,
+        "imageSrc": null
+      },
+      {
+        "id": "55943566688424",
+        "label": "Black / 4XL",
+        "optionValues": [
+          "Black",
+          "4XL"
+        ],
+        "price": 6.99,
+        "compareAt": null,
+        "available": true,
+        "imageSrc": null
+      }
+    ],
+    "tags": [
+      "custom t-shirts"
+    ],
+    "productType": null,
+    "customizableSize": null,
+    "sourceUrl": "https://www.apcanopy.com/products/custom-t-shirts-team-event-t-shirts-dtf-printing"
   },
   {
     "id": "custom-table-cloth-with-business-logo-text",
@@ -463,7 +858,7 @@
         ],
         "price": 229,
         "compareAt": 369,
-        "available": true,
+        "available": false,
         "imageSrc": "https://cdn.shopify.com/s/files/1/0258/9324/0892/files/AMERICAN_PHOENIX_10x20_Pop_Up_Canopy_Tent_blue.jpg?v=1719822270"
       },
       {
@@ -537,6 +932,39 @@
     "productType": null,
     "customizableSize": null,
     "sourceUrl": "https://www.apcanopy.com/products/american-phoenix-price-difference"
+  },
+  {
+    "id": "sand-bags-for-canopy-legs",
+    "name": "Sand Bags for Canopy Legs",
+    "category": "canopy",
+    "size": null,
+    "price": 19.99,
+    "priceMax": 19.99,
+    "compareAt": null,
+    "images": [
+      "https://cdn.shopify.com/s/files/1/0258/9324/0892/files/1_9b55df0e-2d9f-4d30-ac84-9b53484f9e21.jpg?v=1770881272",
+      "https://cdn.shopify.com/s/files/1/0258/9324/0892/files/2_49b72e83-ba0a-472c-acc6-541c6da79867.jpg?v=1770881273",
+      "https://cdn.shopify.com/s/files/1/0258/9324/0892/files/3_1d29f6af-024e-4d72-9d67-0018fb7e1d8d.jpg?v=1770881272",
+      "https://cdn.shopify.com/s/files/1/0258/9324/0892/files/4_781f1a5d-4a8e-40c2-8322-5f4187402c71.jpg?v=1770881272",
+      "https://cdn.shopify.com/s/files/1/0258/9324/0892/files/1_bf7862a5-eaa8-448f-b0bc-8a69720ceaba.jpg?v=1770881272",
+      "https://cdn.shopify.com/s/files/1/0258/9324/0892/files/f4b2f7fb996c75d13621ad01b152e010.jpg?v=1770881272"
+    ],
+    "options": [],
+    "variants": [
+      {
+        "id": "55257084756136",
+        "label": "Default",
+        "optionValues": [],
+        "price": 19.99,
+        "compareAt": null,
+        "available": true,
+        "imageSrc": null
+      }
+    ],
+    "tags": [],
+    "productType": null,
+    "customizableSize": null,
+    "sourceUrl": "https://www.apcanopy.com/products/sand-bags-for-canopy-legs"
   },
   {
     "id": "tent-crossbar-clamps-2pc",
@@ -1419,7 +1847,7 @@
         ],
         "price": 139.99,
         "compareAt": 188,
-        "available": true,
+        "available": false,
         "imageSrc": "https://cdn.shopify.com/s/files/1/0258/9324/0892/files/AMERICAN_PHOENIX_10x15_Pop_Up_Canopy_Tent_black_1.png?v=1719989951"
       },
       {
@@ -1527,7 +1955,7 @@
         ],
         "price": 169.99,
         "compareAt": 188,
-        "available": true,
+        "available": false,
         "imageSrc": "https://cdn.shopify.com/s/files/1/0258/9324/0892/files/AMERICAN_PHOENIX_10x15_Pop_Up_Canopy_Tent_pink_1.png?v=1719989400"
       }
     ],
@@ -2306,7 +2734,7 @@
         ],
         "price": 89,
         "compareAt": null,
-        "available": true,
+        "available": false,
         "imageSrc": "https://cdn.shopify.com/s/files/1/0258/9324/0892/files/AMERICAN_PHOENIX_10x20_Canopy_Top_Cover_Cloth_Blue.png?v=1719997718"
       },
       {
@@ -2888,7 +3316,7 @@
         "optionValues": [],
         "price": 49.99,
         "compareAt": null,
-        "available": false,
+        "available": true,
         "imageSrc": null
       }
     ],
@@ -3112,7 +3540,7 @@
     "name": "AMERICAN PHOENIX Pop Up Canopy Tent 10x20 Instant Shade Shelter Gazebo Outdoor Canopies Commercial Event Tents with Carry Bag",
     "category": "accessory",
     "size": "10x20",
-    "price": 169,
+    "price": 199,
     "priceMax": 199,
     "compareAt": null,
     "images": [
@@ -3138,9 +3566,9 @@
         "optionValues": [
           "Blue"
         ],
-        "price": 169,
+        "price": 199,
         "compareAt": null,
-        "available": true,
+        "available": false,
         "imageSrc": "https://cdn.shopify.com/s/files/1/0258/9324/0892/files/250403-01.jpg?v=1777346880"
       },
       {
@@ -3149,7 +3577,7 @@
         "optionValues": [
           "White"
         ],
-        "price": 169,
+        "price": 199,
         "compareAt": null,
         "available": false,
         "imageSrc": "https://cdn.shopify.com/s/files/1/0258/9324/0892/files/250403-08.jpg?v=1777346909"
@@ -3160,9 +3588,9 @@
         "optionValues": [
           "Black"
         ],
-        "price": 169,
+        "price": 199,
         "compareAt": null,
-        "available": true,
+        "available": false,
         "imageSrc": "https://cdn.shopify.com/s/files/1/0258/9324/0892/files/250403-07.jpg?v=1777346908"
       },
       {
@@ -3184,7 +3612,7 @@
         ],
         "price": 199,
         "compareAt": null,
-        "available": true,
+        "available": false,
         "imageSrc": "https://cdn.shopify.com/s/files/1/0258/9324/0892/files/250403-10.jpg?v=1777346909"
       },
       {
@@ -3281,7 +3709,7 @@
         ],
         "price": 89,
         "compareAt": null,
-        "available": true,
+        "available": false,
         "imageSrc": "https://cdn.shopify.com/s/files/1/0258/9324/0892/files/250403-5x5-09.jpg?v=1777347559"
       },
       {
@@ -3292,7 +3720,7 @@
         ],
         "price": 89,
         "compareAt": null,
-        "available": true,
+        "available": false,
         "imageSrc": "https://cdn.shopify.com/s/files/1/0258/9324/0892/files/250403-5x5-11.jpg?v=1777347559"
       }
     ],
